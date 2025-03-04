@@ -16,16 +16,20 @@ integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cD
 <style> 
     .container{
         display: grid;
-        grid-template-columns:repeat(2, 1fr);
+        grid-template-columns: 1fr 1fr;
         gap: 20px;
+        align-items: center;
     }
     .image{
-        width:100%;
-        border-radius:50;
+        width:150px;
+        height: 150px;
+        border-radius:50%;
+        object-fit: cover;
     }
     .list{
         list-style-type:none;
-        padding:0;
+        padding: 0;
+        margin: 0;
     }
     .list li{
         font-size:18px;
