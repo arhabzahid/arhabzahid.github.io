@@ -11,14 +11,14 @@
         item = window.prompt("what item do you want ?");
        do{
         quantity = parseInt(window.prompt("what is the quantity you wnat from 1 to 99"), 10);
-       }while (isNan(quantity)||quantity<1||quantity>99);
+       }while (isNaN(quantity)||quantity<1||quantity>99);
 
        currentHour=new Date().getHours();
 
        if (currentHour<12){
         greeting="Good Morning";
        }
-       else if (current<18){
+       else if (currentHour<18){
         greeting="Good Afternoon";
        } else {
         greeting="Good Evening";
@@ -32,10 +32,10 @@
 
 
        
-        document.writeln("<h2>  "+greeting +", "+name+ "Thank you For ordering!</h2>");
-        document.writeln("<h2>Your Item:"+item +"</h2>");
-        document.writeln("<h2>Quabtity Requested:"+quantity +"</h2>");
-        document.writeln("<h2>Expected Delivery Date"+deliverydatestring+"</h2>");
+        document.writeln("<h2>  "+ greeting +", "+ name + "Thank you For ordering!</h2>");
+        document.writeln("<h2>Your Item:"+ item +"</h2>");
+        document.writeln("<h2>Quantity Requested:"+ quantity +"</h2>");
+        document.writeln("<h2>Expected Delivery Date"+ deliverydatestring +"</h2>");
 
 </script>
 </head>
