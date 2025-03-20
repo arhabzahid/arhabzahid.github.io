@@ -2,18 +2,43 @@
 <head>
     <script type ="text/javascript">
      
-        var name,
-        item, quantity ;
+        var name, item, quantity, currentHour, greeting, orderdate,deliverydate,deliverydatestring ;
        name= window.prompt("enter name ","Arhab ");
         document.writeln("<h1> Hello," + name + " Welcome to Amazing Store!</h1>");
         item = window.prompt("what item do you want ?")
-        quantity = window.prompt("what is the quantity you wnat from 1 to 99")
-        document.writeln("<h2> Your Item "+item +" and this is the quantity You want "+quantity+"</h2>")
-    </script>
+       do{
+        quantity = parseInt(window.prompt("what is the quantity you wnat from 1 to 99"), 10);
+       }while (isNan(quantity)||quantity<1||quantity>99);
+
+       currentHour=new Date().getHours();
+
+       if (currentHour<12){
+        greeting="Good Morning";
+       }
+       else if (current<18){
+        greeting="Good Afternoon";
+       } else {
+        greeting="Good Evening";
+       }
+
+       orderdate=new Date();
+       deliverydate=new Date();
+       deliverydate.setDate(orderdate.getDate()+7);
+       deliverydatestring=deliverydate.toDateString();
+       
+
+
+       
+        document.writeln("<h2>  "+greeting +", "+name+ "Thank you For ordering!</h2>");
+        document.writeln("<h2>Your Item:"+item +"</h2>");
+        document.writeln("<h2>Quabtity Requested:"+quantity +"</h2>");
+        document.writeln("<h2>Expected Delivery Date"+deliverydatestring+"</h2>");
+
+</script>
 </head>
 <body>
-    <p>enter your name</p>
-    <h1>i am arhab</h1>
+    
+    <h1>This is Arhab Zahid From Amazing Store </h1>
 </body>
 
 </html>
