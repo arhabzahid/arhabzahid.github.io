@@ -7,9 +7,9 @@
     <script>
         function submitForm(){
             var elements = document.getElementById("myForm").elements;
-            var elemsArr1 = Array.from(elements);
+          
             var submission = {};
-            elemsArr1.forEach ((element)=> console.log(element.name + " " + element.value));
+            
             for (var i = 0; i<element.length; i++){
                 if(element[i].type ==="text"){
                     submission[element[i].name]=element[i].value;
@@ -23,11 +23,11 @@
 </head>
 <body>
     <form id = "myForm">
-        First Name:    <input type = "text" name ="fname" value = "  "><br>
-        Last Name:     <input type = "text" name="lname" value=" "><br>
-        Date of Birth: <input type = "text" date ="fdate" value =" "><br>
-        Email Id:      <input type ="text" name = "email" value =" "><br>
-        Password:      <input type ="text" name ="Pass" value = " "><br> 
+        First Name:    <input type = "text" name = "fname" value = "  "><br>
+        Last Name:     <input type = "text" name= "lname" value = " "><br>
+        Date of Birth: <input type = "text" date = "fdate" value = " "><br>
+        Email Id:      <input type = "text" name = "email" value = " "><br>
+        Password:      <input type = "text" name = "Pass" value = " "><br> 
     <button onclick = "submitForm()">submit</button>
     <p>click submit and try me </p>
     <p id= "demo"></p> 
