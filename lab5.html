@@ -10,6 +10,12 @@
             var elemsArr1 = Array.from(element);
             var submission = {};
             elemsArr1.forEach ((element)=> console.log(element.name + " " + element.value));
+            for (var i = 0; i<element.length; i++){
+                if(element[i].type ==="text"){
+                    submission[element[i].name]=element[i].value;
+                }
+            }
+            document.element("demo").innerHTML = "First Name: " + (submission["fname"]) + "<br>" + "Last Name: " + (submission["lname"]) + "<br>" + "Date of Birth: " + (submission["fdate"]) + "<br>" +"Email: " + (submission["email"]) ;
           
 
         }
@@ -18,9 +24,9 @@
 <body>
     <form id = "myForm">
         First Name:    <input type = "text" name ="fname" value = " arhab "><br>
-        Last Name:     <input type = "text" name="1name" value=" "><br>
+        Last Name:     <input type = "text" name="lname" value=" "><br>
         Date of Birth: <input type = "text" date ="fdate" value =" "><br>
-        Email Id:      <input type ="text" ><br>
+        Email Id:      <input type ="text" name = "email" value =" "><br>
     </form> 
     <button onclick = "submitForm()">submit</button>
     <p>click submit and try me </p>
