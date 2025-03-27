@@ -24,8 +24,8 @@ integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cD
                  submission[element.name]=element.value; 
             };
         });
-           alert("Submitted");
-           document.getElementById("demo").innerHTML = "First Name: " + (submission["fname"]) + "<br>" + "Last Name: " + (submission["lname"]) + "<br>" + "Date of Birth: " + (submission["fdate"]) + "<br>" +"Email: " + (submission["email"]) + "<br>" + "Password: " + ${submission["Pass"]? "*".repeat(submission["pass"].length): ""} ;
+           window.alert("Submitted")
+           document.getElementById("demo").innerHTML = "First Name: " + (submission["fname"]) + "<br>" + "Last Name: " + (submission["lname"]) + "<br>" + "Date of Birth: " + (submission["fdate"]) + "<br>" +"Email: " + (submission["email"]) + "<br>" + "Password: " + (submission["Pass"]) ;
          
          
 
