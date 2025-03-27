@@ -24,14 +24,16 @@ integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cD
                  submission[element.name]=element.value; 
             };
         });
-        var pass=submission["Pass"] || "";
-        var correctpassword=pass.include("!")||pass.include("?");
+        var p=submission["Pass"] || "";
+        var correctpassword=p.include("!")||p.include("?");
         submission["Pass"] = submission["Pass"] ? "*".repeat(submission["Pass"].length) : "";
         
-        var aproval 
+        var aproval;
         if (correctpassword){aproval="<strong>Submission Successful!</strong>";
-    }else{aproval="<strong>Submission Unsuccessful! Password must contain ! and ? </strong>";    
-}
+
+        }else{aproval="<strong>Submission Unsuccessful! Password must contain ! and ? </strong>";    
+
+        }
         var demo = `
                 ${aproval}<br>
                 First Name: ${submission["fname"] || ""}<br>
