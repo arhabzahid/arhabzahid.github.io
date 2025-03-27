@@ -25,7 +25,7 @@ integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cD
             };
         });
         var p=submission["Pass"] || "";
-        var correctpassword=p.include("!")||p.include("?");
+        var correctpassword=p.includes("!")||p.includes("?");
 
         submission["Pass"] =  "*".repeat(p.length);
         
