@@ -15,7 +15,7 @@
                     submission[element[i].name]=element[i].value;
                 }
             }
-            document.element("demo").innerHTML = "First Name: " + (submission["fname"]) + "<br>" + "Last Name: " + (submission["lname"]) + "<br>" + "Date of Birth: " + (submission["fdate"]) + "<br>" +"Email: " + (submission["email"]) ;
+            document.getElementById("demo").innerHTML = "First Name: " + (submission["fname"]) + "<br>" + "Last Name: " + (submission["lname"]) + "<br>" + "Date of Birth: " + (submission["fdate"]) + "<br>" +"Email: " + (submission["email"]) + "Password: " + (submission["Pass"]);
           
 
         }
@@ -27,7 +27,7 @@
         Last Name:     <input type = "text" name="lname" value=" "><br>
         Date of Birth: <input type = "text" date ="fdate" value =" "><br>
         Email Id:      <input type ="text" name = "email" value =" "><br>
-    </form> 
+        Password:      <input type ="text" name ="Pass" value = " "><br> 
     <button onclick = "submitForm()">submit</button>
     <p>click submit and try me </p>
     <p id= "demo"></p> 
