@@ -15,7 +15,7 @@
                     submission[elements[i].name]=elements[i].value;
                 }
             }
-            document.getElementById("demo").innerHTML = "First Name: " + (submission["fname"]) + "<br>" + "Last Name: " + (submission["lname"]) + "<br>" + "Date of Birth: " + (submission["fdate"]) + "<br>" +"Email: " + (submission["email"]) + "<br>" + "Password: " + (submission["Pass"]);
+            document.getElementById("demo").innerHTML = "First Name: " + (submission["fname"]) + "<br>" + "Last Name: " + (submission["lname"]) + "<br>" + "Date of Birth: " + (submission["fdate"]) + "<br>" +"Email: " + (submission["email"]) + "<br>" + "Password: " + (submission["Pass"] + maskpassword);
           event.preventDefault();
 
         }
