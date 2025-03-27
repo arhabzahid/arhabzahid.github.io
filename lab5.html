@@ -24,6 +24,8 @@ integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cD
                  submission[element.name]=element.value; 
             };
         });
+        var pass=submission["Pass"] || "";
+        var correctpassword=pass.include("!")||pass.include("?");
      submission["Pass"] = submission["Pass"] ? "*".repeat(submission["Pass"].length) : "";
             var demo = `
                 <strong>Submission Successful!</strong><br>
@@ -34,11 +36,7 @@ integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cD
                 Password: ${submission["Pass"]}
             `;
             window.alert("Submitted")
-            document.getElementById("demo").innerHTML = demo;
-
-
-
-         
+            document.getElementById("demo").innerHTML = demo; 
          
 
         }
