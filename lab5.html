@@ -24,8 +24,10 @@ integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cD
                  submission[element.name]=element.value; 
             };
         });
-        submission["Pass"]=submission["Pass"]? "*".repeat(submission["Pass"].length ):"";
-      
+       // submission["Pass"]=submission["Pass"]? "*".repeat(submission["Pass"].length ):"";
+       submission["Pass"] = submission["Pass"] ? "*".repeat(submission["Pass"].length) : "";
+
+
             
             var modalContent = `
                 <strong>Submission Successful!</strong><br>
