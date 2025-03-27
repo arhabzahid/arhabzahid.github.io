@@ -26,7 +26,8 @@ integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cD
         });
         var p=submission["Pass"] || "";
         var correctpassword=p.include("!")||p.include("?");
-        submission["Pass"] = submission["Pass"] ? "*".repeat(submission["Pass"].length) : "";
+
+        submission["Pass"] =  "*".repeat(p.length);
         
         var aproval;
         if (correctpassword){aproval="<strong>Submission Successful!</strong>";
@@ -42,7 +43,7 @@ integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cD
                 Email: ${submission["email"] || ""}<br>
                 Password: ${submission["Pass"]}
             `;
-            window.alert("Submitted")
+           
             document.getElementById("demo").innerHTML = demo; 
          
 
