@@ -24,12 +24,21 @@ integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cD
                  submission[element.name]=element.value; 
             };
         });
-       if(submission["Pass"]) 
-        {const PL= submission["Pass"].length;
-        submission["Pass"]= submission["Pass"].substring(0, 2) + "*".repeat (math.max(0, PL-2));
-        }
+        submission["Pass"]=submission["Pass"]? "*".repeat(submission["Pass"].length ):"";
+      
             window.alert("Submitted")
-           document.getElementById("demo").innerHTML = "First Name: " + (submission["fname"]) + "<br>" + "Last Name: " + (submission["lname"]) + "<br>" + "Date of Birth: " + (submission["fdate"]) + "<br>" +"Email: " + (submission["email"]) + "<br>" + "Password: " + (submission["Pass"]) ;
+            var modalContent = `
+                <strong>Submission Successful!</strong><br>
+                First Name: ${submission["fname"] || ""}<br>
+                Last Name: ${submission["lname"] || ""}<br>
+                Date of Birth: ${submission["fdate"] || ""}<br>
+                Email: ${submission["email"] || ""}<br>
+                Password: ${submission["Pass"]}
+            `;
+            document.getElementById("modalContent").innerHTML = modalContent;
+
+
+          // document.getElementById("demo").innerHTML = "First Name: " + (submission["fname"]) + "<br>" + "Last Name: " + (submission["lname"]) + "<br>" + "Date of Birth: " + (submission["fdate"]) + "<br>" +"Email: " + (submission["email"]) + "<br>" + "Password: " + (submission["Pass"]) ;
          
          
 
