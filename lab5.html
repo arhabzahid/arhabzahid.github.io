@@ -26,7 +26,7 @@ integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cD
         });
         submission["Pass"]=submission["Pass"]? "*".repeat(submission["Pass"].length ):"";
       
-            window.alert("Submitted")
+            
             var modalContent = `
                 <strong>Submission Successful!</strong><br>
                 First Name: ${submission["fname"] || ""}<br>
@@ -35,6 +35,7 @@ integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cD
                 Email: ${submission["email"] || ""}<br>
                 Password: ${submission["Pass"]}
             `;
+            window.alert("Submitted")
             document.getElementById("modalContent").innerHTML = modalContent;
 
 
