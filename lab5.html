@@ -25,7 +25,7 @@ integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cD
             };
         });
      submission["Pass"] = submission["Pass"] ? "*".repeat(submission["Pass"].length) : "";
-            var modalContent = `
+            var demo = `
                 <strong>Submission Successful!</strong><br>
                 First Name: ${submission["fname"] || ""}<br>
                 Last Name: ${submission["lname"] || ""}<br>
@@ -34,11 +34,10 @@ integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cD
                 Password: ${submission["Pass"]}
             `;
             window.alert("Submitted")
-            document.getElementById("modalContent").innerHTML = modalContent;
+            document.getElementById("demo").innerHTML = demo;
 
 
 
-          //document.getElementById("demo").innerHTML = "First Name: " + (submission["fname"]) + "<br>" + "Last Name: " + (submission["lname"]) + "<br>" + "Date of Birth: " + (submission["fdate"]) + "<br>" +"Email: " + (submission["email"]) + "<br>" + "Password: " + (submission["Pass"]) ;
          
          
 
@@ -64,7 +63,7 @@ integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cD
     </form>
     <button onclick = "submitForm()">submit</button>
     <p>click submit and try me </p>
- <p id = "modalContent" ></p>
+ <p id = "demo" ></p>
  
  
    
