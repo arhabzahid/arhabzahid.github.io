@@ -9,8 +9,13 @@
             var elements = document.getElementById("myForm").elements;
             var elemArr1 =Array.from(elements); 
             var submission = {};
-            elemArr1.forEach((element)=>console.log(element.name + " " + element.value ));
-            
+            elemArr1.forEach((element)=>
+            {if (element.name){
+                 submission[element.name]=element.value; 
+            };
+
+            });
+           
             document.getElementById("demo").innerHTML = "First Name: " + (submission["fname"]) + "<br>" + "Last Name: " + (submission["lname"]) + "<br>" + "Date of Birth: " + (submission["fdate"]) + "<br>" +"Email: " + (submission["email"]) + "<br>" + "Password: " + (submission["Pass"]) ;
           
 
@@ -31,3 +36,4 @@
 
 </body>
 </html>
+
