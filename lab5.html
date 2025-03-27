@@ -7,16 +7,16 @@
     <script>
         function submitForm(){
             var elements = document.getElementById("myForm").elements;
-            var elemArr1 =Array.from(elements); 
+            //var elemArr1 =Array.from(elements); 
             var submission = {};
-            elemArr1.forEach((element)=>console.log(element.name + " " + element.value ));
+           // elemArr1.forEach((element)=>console.log(element.name + " " + element.value ));
             for (var i = 0; i<elements.length; i++){
                 if(elements[i].type ==="text"){
                     submission[elements[i].name]=elements[i].value;
                 }
             }
-            document.getElementById("demo").innerHTML = "First Name: " + (submission["fname"]) + "<br>" + "Last Name: " + (submission["lname"]) + "<br>" + "Date of Birth: " + (submission["fdate"]) + "<br>" +"Email: " + (submission["email"]) + "<br>" + "Password: " + (submission["Pass"] + maskpassword);
-          event.preventDefault();
+            document.getElementById("demo").innerHTML = "First Name: " + (submission["fname"]) + "<br>" + "Last Name: " + (submission["lname"]) + "<br>" + "Date of Birth: " + (submission["fdate"]) + "<br>" +"Email: " + (submission["email"]) + "<br>" + "Password: " + (submission["Pass"]) + maskpassword;
+          //event.preventDefault();
 
         }
     </script>
