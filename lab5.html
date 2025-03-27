@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<head>
+    <title> Air Field Registration  </title>
+    <script>
+        function submitForm(){
+            var element = document.getElementById("myForm").element;
+            var elemsArr1 = Array.from(element);
+            var submission = {};
+            elemsArr1.forEach ((element)=> console.log(element.name + " " + element.value));
+
+        }
+    </script>
+</head>
+<body>
+    <form id = "myForm">
+        First Name: <input type = "text" name ="fname" value = " "><br>
+        Last Name: <input type = "text" name="1name" value=" "><br>
+        Date of Birth: <input type = "text" date ="fdate" value =" "><br>
+        Email Id: <input type ="text" ><br>
+    </form> 
+    <button onclick = "submitForm()">submit</button>
+    <p>click submit and try me </p>
+    <p id= "demo"></p> 
+
+</body>
+</html>
