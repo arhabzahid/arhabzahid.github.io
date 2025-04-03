@@ -1,26 +1,70 @@
 <!DOCTYPE html>
 <head>
-    <title> Air Field Registration  </title>
-    <script>
-        function submitForm(){
-            var element = document.getElementById("myForm").element;
-            var elemsArr1 = Array.from(element);
-            var submission = {};
-            elemsArr1.forEach ((element)=> console.log(element.name + " " + element.value));
+    
 
-        }
-    </script>
 </head>
 <body>
-    <form id = "myForm">
-        First Name: <input type = "text" name ="fname" value = " "><br>
-        Last Name: <input type = "text" name="1name" value=" "><br>
-        Date of Birth: <input type = "text" date ="fdate" value =" "><br>
-        Email Id: <input type ="text" ><br>
-    </form> 
-    <button onclick = "submitForm()">submit</button>
-    <p>click submit and try me </p>
-    <p id= "demo"></p> 
+   <h1> Cats Facts</h1>
+   <button onclick ="fetchCatsFacts()">Load Cat Facts</button>
+   <button onclick ="postCAtFacts()">Post Cat Facts</button>
+   <br>
+   <img id >
+   <table>
+    <tr>
+        <th>ID</th>
+        <th>Facts</th>
+        <tbody> id= "facts Table"</tbody>
+    </tr>
+   </table>
+   <script>
+    async function fetchCatsFacts(){
+        const url = 'https://brianobruno.github.io/cats.json';
+        const options ={
+            method:'GET'
+        };
+        try {
+            const response = await fetch (url, options);
+            const data = await response.json();
+            document.getElementById('catimage').src=data.image;
+            let sortedFacts = data.facts.sort((a, b) =>a.factId -b.FactId);
+            let tableBody = document.getElementById('factsTable');
+            tableBody.innerHTML="";
+            sortedFacts.froEach(fact=>{
+                let row = `<tr><td>${fact.factId}</td><td>${fact.text}</td></tr>`;
+                tableBody.innerHTML +=row;
+
+            });
+        }catch(error){
+            console.error('error:', error);
+        }
+    }
+    async function postCAtFacts(){
+        const url ='';
+        const newFact={
+            factId: Math.floor(Math.random() * 100) + 1,
+            text:"Cats LOves sleeping all day!"
+        };
+const options ={
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body:JSON.stringify(newFact)
+};
+try{
+    const response =await fetch(url, options);
+    const result = await response.json();
+    console.log('Fact posted', result);
+
+}catch (error){
+    console.error('error:', error);
+}
+
+
+    }
+   </script>
+
 
 </body>
 </html>
+"
