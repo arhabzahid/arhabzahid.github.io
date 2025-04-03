@@ -26,7 +26,7 @@
             const response = await fetch (url, options);
             const data = await response.json();
             document.getElementById('catimage').src=data.image;
-            let sortedFacts = data.facts.sort((a, b) =>a.factId -b.FactId);
+            let sortedFacts = data.facts.sort((a, b) => a.factId -b.factId);
             let tableBody = document.getElementById('factsTable');
             tableBody.innerHTML="";
             sortedFacts.froEach(fact=>{
@@ -67,4 +67,3 @@ try{
 
 </body>
 </html>
-"
