@@ -25,11 +25,11 @@
         try {
             const response = await fetch (url, options);
             const data = await response.json();
-            document.getElementById('catimage').src=data.image;
+            document.getElementById('catimage').src = data.image;
             let sortedFacts = data.facts.sort((a, b) => a.factId -b.factId);
             let tableBody = document.getElementById('factsTable');
             tableBody.innerHTML="";
-            sortedFacts.froEach(fact=>{
+            sortedFacts.forEach(fact=>{
                 let row = `<tr><td>${fact.factId}</td><td>${fact.text}</td></tr>`;
                 tableBody.innerHTML +=row;
 
@@ -39,7 +39,7 @@
         }
     }
     async function postCAtFacts(){
-        const url ='https://brianobruno.github.io/cats.json';
+        const url ='';
         const newFact={
             factId: Math.floor(Math.random() * 100) + 1,
             text:"Cats LOves sleeping all day!"
