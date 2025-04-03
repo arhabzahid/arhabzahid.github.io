@@ -31,8 +31,7 @@
     async function fetchCatsFacts(){
         const url = 'https://brianobruno.github.io/cats.json';
         const options ={
-            method:'GET'
-        };
+            method:'GET'};
         try {
             const response = await fetch (url, options);
             const data = await response.json();
@@ -50,28 +49,7 @@
         }
     }
     async function postCAtFacts(){
-        const url ='';
-        const newFact={
-            factId: Math.floor(Math.random() * 100) + 1,
-            text:"Cats LOves sleeping all day!"
-        };
-const options ={
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json'
-    },
-    body:JSON.stringify(newFact)
-};
-try{
-    const response =await fetch(url, options);
-    const result = await response.json();
-    console.log('Fact posted', result);
-
-}catch (error){
-    console.error('error:', error);
-}
-
-
+        
     }
    </script>
 
