@@ -15,7 +15,7 @@
     <button onclick="fetchCatsFacts()">Load</button>
    
     <br>
-    <img id="image/mycat.jpg">
+    <img id="catpic" src = "image/mycat.jpg" alt="my kitten ">
     <table>
         <thead>
             <tr>
@@ -32,7 +32,7 @@
             try {
                 const response = await fetch(url);
                 const data = await response.json();
-                document.getElementById('image/mycat.jpg').src = data.image;
+                document.getElementById('catpic').src = data.image;
 
                 let sortedFacts = data.facts.sort((a, b) => a.factId - b.factId);
                 let tableBody = document.getElementById('factsTable');
