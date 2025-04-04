@@ -17,7 +17,7 @@
 <body>
     <h1>Cats Facts</h1>
     <button onclick="fetchCatsFacts()">Load</button>
-    <button onclick="postCatFacts()">Post</button>
+   
     <br>
     <img id="image/mycat.jpg">
     <table>
@@ -36,7 +36,7 @@
             try {
                 const response = await fetch(url);
                 const data = await response.json();
-                document.getElementById('catImage').src = data.image;
+                document.getElementById('image/mycat.jpg').src = data.image;
 
                 let sortedFacts = data.facts.sort((a, b) => a.factId - b.factId);
                 let tableBody = document.getElementById('factsTable');
@@ -50,9 +50,7 @@
             }
         }
 
-        async function postCatFacts() {
-            // Placeholder for post functionality
-        }
+       
     </script>
 </body>
 </html>
