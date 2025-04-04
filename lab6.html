@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html>
 <head>
     <title>Cat Facts</title>
     <style>
@@ -12,47 +13,46 @@
             margin-top: 20px;
         }
     </style>
-
 </head>
 <body>
-   <h1> Cats Facts</h1>
-   <button onclick ="fetchCatsFacts()">Load </button>
-   <button onclick ="postCAtFacts()">Post </button>
-   <br>
-   <img id >
-   <table>
-    <tr>
-        <th>ID</th>
-        <th>Facts</th>
-        <tbody> id= "Cats Fact Table"</tbody>
-    </tr>
-   </table>
-   <script>
-    async function fetchCatsFacts(){
-        const url = 'https://brianobruno.github.io/cats.json';
-        const options ={
-            method:'GET'};
-        try {
-            const response = await fetch (url, options);
-            const data = await response.json();
-            document.getElementById('catImage').src = data.image;
-            let sortedFacts = data.facts.sort((a, b) => a.factId -b.factId);
-            let tableBody = document.getElementById('factsTable');
-            tableBody.innerHTML="";
-            sortedFacts.forEach(fact=>{
-                let row = `<tr><td>${fact.factId}</td><td>${fact.text}</td></tr>`;
-                tableBody.innerHTML +=row;
+    <h1>Cats Facts</h1>
+    <button onclick="fetchCatsFacts()">Load</button>
+    <button onclick="postCatFacts()">Post</button>
+    <br>
+    <img id="image/mycat.jpg">
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Facts</th>
+            </tr>
+        </thead>
+        <tbody id="factsTable"></tbody>
+    </table>
 
-            });
-        }catch(error){
-            console.error('error:', error);
+    <script>
+        async function fetchCatsFacts() {
+            const url = 'https://brianobruno.github.io/cats.json';
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+                document.getElementById('catImage').src = data.image;
+
+                let sortedFacts = data.facts.sort((a, b) => a.factId - b.factId);
+                let tableBody = document.getElementById('factsTable');
+                tableBody.innerHTML = "";
+                sortedFacts.forEach(fact => {
+                    let row = `<tr><td>${fact.factId}</td><td>${fact.text}</td></tr>`;
+                    tableBody.innerHTML += row;
+                });
+            } catch (error) {
+                console.error('Error:', error);
+            }
         }
-    }
-    async function postCAtFacts(){
-        
-    }
-   </script>
 
-
+        async function postCatFacts() {
+            // Placeholder for post functionality
+        }
+    </script>
 </body>
 </html>
