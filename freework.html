@@ -1,30 +1,63 @@
-<html><head>
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Newspaper Website</title>
+    <!-- Bootstrap CDN for styling -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        .card {
+            margin: 20px;
+        }
+    </style>
 </head>
 <body>
 
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">News Portal</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="index.html">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="page2.html">Sports</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="page2.html">Technology</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="page2.html">World News</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
 
-    <table border="1">
-        <thead>
-          <tr>
-            <th>Headline</th>
-            <th>Category</th>
-            <th>Date</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>New Tech Launch</td>
-            <td>Technology</td>
-            <td>April 24, 2025</td>
-          </tr>
-          <tr>
-            <td>Sports Finals</td>
-            <td>Sports</td>
-            <td>April 23, 2025</td>
-          </tr>
-        </tbody>
-      </table>
-    </body>
-      
+    <!-- Main Content -->
+    <div class="container">
+        <h1>Welcome to the Newspaper Website</h1>
+        <p>Click on any of the links below to view the latest news articles.</p>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Latest News</h5>
+                <p class="card-text">Stay updated with the latest news around the world.</p>
+                <a href="page2.html" class="btn btn-primary">Read More</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
 </html>
