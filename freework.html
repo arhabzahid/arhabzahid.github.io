@@ -66,7 +66,8 @@
       document.getElementById("detailsPage").style.display = "none";
     }
 
-    function fetchNewsDetails() {
+    
+  function fetchNewsDetails() {
     const apiUrl = 'https://cors-anywhere.herokuapp.com/https://chroniclingamerica.loc.gov/lccn/sn85038615.rdf';  // Using CORS proxy
     fetch(apiUrl)
       .then(response => response.text())
@@ -76,10 +77,10 @@
         const parser = new DOMParser();
         const xmlDoc = parser.parseFromString(data, "application/xml");
 
-        // Extract data using the correct element names
-        const title = xmlDoc.querySelector("dcterms\\:title") ? xmlDoc.querySelector("dcterms\\:title").textContent : 'Title not available';
-        const issuedDate = xmlDoc.querySelector("dcterms\\:issued") ? xmlDoc.querySelector("dcterms\\:issued").textContent : 'Date not available';
-        const format = xmlDoc.querySelector("dc\\:format") ? xmlDoc.querySelector("dc\\:format").textContent : 'Format not available';
+        // Extracting title, issued date, and format using namespaces
+        const title = xmlDoc.getElementsByTagNameNS('http://purl.org/dc/elements/1.1/', 'title')[0] ? xmlDoc.getElementsByTagNameNS('http://purl.org/dc/elements/1.1/', 'title')[0].textContent : 'Title not available';
+        const issuedDate = xmlDoc.getElementsByTagNameNS('http://purl.org/dc/terms/', 'issued')[0] ? xmlDoc.getElementsByTagNameNS('http://purl.org/dc/terms/', 'issued')[0].textContent : 'Date not available';
+        const format = xmlDoc.getElementsByTagNameNS('http://purl.org/dc/elements/1.1/', 'format')[0] ? xmlDoc.getElementsByTagNameNS('http://purl.org/dc/elements/1.1/', 'format')[0].textContent : 'Format not available';
 
         // Log values to check if we're getting anything
         console.log("Title:", title);
@@ -99,6 +100,8 @@
         document.getElementById('newsDetails').innerHTML = "<p>Failed to load news details. Please try again later.</p>";
       });
   }
+
+
 
 
   </script>
