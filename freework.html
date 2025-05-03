@@ -75,19 +75,23 @@
           // Parse the RDF data and extract useful information
           const parser = new DOMParser();
           const xmlDoc = parser.parseFromString(data, "application/xml");
-          const title = xmlDoc.querySelector("title").textContent;
-          const description = xmlDoc.querySelector("description").textContent;
+          
+          // Extract specific elements from the RDF (you can customize based on your needs)
+          const title = xmlDoc.querySelector("dc\\:title") ? xmlDoc.querySelector("dc\\:title").textContent : 'Title not available';
+          const description = xmlDoc.querySelector("dc\\:description") ? xmlDoc.querySelector("dc\\:description").textContent : 'Description not available';
+          const publisher = xmlDoc.querySelector("dc\\:publisher") ? xmlDoc.querySelector("dc\\:publisher").textContent : 'Publisher not available';
 
           // Display the fetched details in the news section
           const newsContent = `
             <h3>${title}</h3>
-            <p>${description}</p>
+            <p><strong>Publisher:</strong> ${publisher}</p>
+            <p><strong>Description:</strong> ${description}</p>
           `;
           document.getElementById('newsDetails').innerHTML = newsContent;
         })
         .catch(error => {
           console.error("Error fetching news data:", error);
-          document.getElementById('newsDetails').innerHTML = "<p>Failed to load news details.</p>";
+          document.getElementById('newsDetails').innerHTML = "<p>Failed to load news details. Please try again later.</p>";
         });
     }
   </script>
