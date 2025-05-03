@@ -66,22 +66,19 @@
       document.getElementById("detailsPage").style.display = "none";
     }
 
-    // Function to fetch data from Chronicling America API
+    // Updated function to use the CORS proxy to fetch data
     function fetchNewsDetails() {
-      const apiUrl = 'https://chroniclingamerica.loc.gov/lccn/sn85038615.rdf';  // Times Dispatch API link
+      const apiUrl = 'https://cors-anywhere.herokuapp.com/https://chroniclingamerica.loc.gov/lccn/sn85038615.rdf';  // Using CORS proxy
       fetch(apiUrl)
         .then(response => response.text())
         .then(data => {
-          // Parse the RDF data and extract useful information
           const parser = new DOMParser();
           const xmlDoc = parser.parseFromString(data, "application/xml");
-          
-          // Extract specific elements from the RDF (you can customize based on your needs)
+
           const title = xmlDoc.querySelector("dc\\:title") ? xmlDoc.querySelector("dc\\:title").textContent : 'Title not available';
           const description = xmlDoc.querySelector("dc\\:description") ? xmlDoc.querySelector("dc\\:description").textContent : 'Description not available';
           const publisher = xmlDoc.querySelector("dc\\:publisher") ? xmlDoc.querySelector("dc\\:publisher").textContent : 'Publisher not available';
 
-          // Display the fetched details in the news section
           const newsContent = `
             <h3>${title}</h3>
             <p><strong>Publisher:</strong> ${publisher}</p>
