@@ -30,6 +30,10 @@
     .btn-custom {
       margin-top: 10px;
     }
+    .news-content {
+      text-align: left;
+      margin-top: 20px;
+    }
   </style>
 </head>
 <body>
@@ -44,7 +48,7 @@
 
   <div class="container" id="detailsPage" style="display: none;">
     <h2>News Details</h2>
-    <p>This is the second page where you can show in-depth details or articles.</p>
+    <div id="newsDetails" class="news-content"></div>
     <div class="d-grid gap-2 col-6 mx-auto">
       <button class="btn btn-secondary btn-custom" onclick="showHome()">Go Back</button>
     </div>
@@ -54,11 +58,37 @@
     function showDetails() {
       document.getElementById("homePage").style.display = "none";
       document.getElementById("detailsPage").style.display = "block";
+      fetchNewsDetails();
     }
 
     function showHome() {
       document.getElementById("homePage").style.display = "block";
       document.getElementById("detailsPage").style.display = "none";
+    }
+
+    // Function to fetch data from Chronicling America API
+    function fetchNewsDetails() {
+      const apiUrl = 'https://chroniclingamerica.loc.gov/lccn/sn85038615.rdf';  // Times Dispatch API link
+      fetch(apiUrl)
+        .then(response => response.text())
+        .then(data => {
+          // Parse the RDF data and extract useful information
+          const parser = new DOMParser();
+          const xmlDoc = parser.parseFromString(data, "application/xml");
+          const title = xmlDoc.querySelector("title").textContent;
+          const description = xmlDoc.querySelector("description").textContent;
+
+          // Display the fetched details in the news section
+          const newsContent = `
+            <h3>${title}</h3>
+            <p>${description}</p>
+          `;
+          document.getElementById('newsDetails').innerHTML = newsContent;
+        })
+        .catch(error => {
+          console.error("Error fetching news data:", error);
+          document.getElementById('newsDetails').innerHTML = "<p>Failed to load news details.</p>";
+        });
     }
   </script>
 
