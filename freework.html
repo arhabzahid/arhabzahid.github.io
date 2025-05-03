@@ -66,31 +66,31 @@
       document.getElementById("detailsPage").style.display = "none";
     }
 
-  function fetchNewsDetails() {
+    function fetchNewsDetails() {
     const apiUrl = 'https://cors-anywhere.herokuapp.com/https://chroniclingamerica.loc.gov/lccn/sn85038615.rdf';  // Using CORS proxy
     fetch(apiUrl)
       .then(response => response.text())
       .then(data => {
         console.log(data);  // Log the raw XML response to inspect its structure
-        
+
         const parser = new DOMParser();
         const xmlDoc = parser.parseFromString(data, "application/xml");
 
-        // Check if we have any expected content by logging parts of the document
-        const title = xmlDoc.querySelector("dc\\:title") ? xmlDoc.querySelector("dc\\:title").textContent : 'Title not available';
-        const description = xmlDoc.querySelector("dc\\:description") ? xmlDoc.querySelector("dc\\:description").textContent : 'Description not available';
-        const publisher = xmlDoc.querySelector("dc\\:publisher") ? xmlDoc.querySelector("dc\\:publisher").textContent : 'Publisher not available';
+        // Extract data using the correct element names
+        const title = xmlDoc.querySelector("dcterms\\:title") ? xmlDoc.querySelector("dcterms\\:title").textContent : 'Title not available';
+        const issuedDate = xmlDoc.querySelector("dcterms\\:issued") ? xmlDoc.querySelector("dcterms\\:issued").textContent : 'Date not available';
+        const format = xmlDoc.querySelector("dc\\:format") ? xmlDoc.querySelector("dc\\:format").textContent : 'Format not available';
 
         // Log values to check if we're getting anything
         console.log("Title:", title);
-        console.log("Description:", description);
-        console.log("Publisher:", publisher);
+        console.log("Issued Date:", issuedDate);
+        console.log("Format:", format);
 
         // Display the fetched details in the news section
         const newsContent = `
           <h3>${title}</h3>
-          <p><strong>Publisher:</strong> ${publisher}</p>
-          <p><strong>Description:</strong> ${description}</p>
+          <p><strong>Issued Date:</strong> ${issuedDate}</p>
+          <p><strong>Format:</strong> ${format}</p>
         `;
         document.getElementById('newsDetails').innerHTML = newsContent;
       })
