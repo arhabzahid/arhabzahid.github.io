@@ -58,8 +58,9 @@
   <script>
     async function loadNewspapers() {
       try {
-        const res = await fetch('https://chroniclingamerica.loc.gov/newspapers.json');
-        const data = await res.json();
+        const res = await fetch('https://api.allorigins.win/get?url=' + encodeURIComponent('https://chroniclingamerica.loc.gov/newspapers.json'));
+        const wrappedData = await res.json();
+        const data = JSON.parse(wrappedData.contents);
 
         const container = document.getElementById('newspapers');
         data.newspapers.slice(0, 12).forEach(paper => {
