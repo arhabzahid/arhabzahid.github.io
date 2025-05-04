@@ -24,7 +24,7 @@
     }
     h1, span, hr {
       text-align: center;
-      color: rgba(255, 255, 255, 0.9);
+      color: white;
     }
     h2 {
       text-align: center;
@@ -35,6 +35,7 @@
       flex-wrap: wrap;
       justify-content: center;
       gap: 1.5rem;
+      padding: 20px;
     }
     .paper-card {
       background: #222;
@@ -59,7 +60,7 @@
   </style>
 </head>
 <body>
-  <div class="overlay">
+  <div class="container">
     <h1>Explore Historic Newspapers</h1>
     <div id="newspapers" class="newspapers"></div>
   </div>
@@ -68,31 +69,27 @@
     async function loadNewspapers() {
       try {
         const proxy = 'https://api.allorigins.win/raw?url=';
-        const url = 'https://chroniclingamerica.loc.gov/titles.json';
-        const res = await fetch(proxy + encodeURIComponent(url));
+        const apiUrl = 'https://chroniclingamerica.loc.gov/newspapers.json';
+        const res = await fetch(proxy + encodeURIComponent(apiUrl));
         const data = await res.json();
 
-        const newspapers = data.results || [];
         const container = document.getElementById('newspapers');
         container.innerHTML = '';
 
-        if (newspapers.length === 0) {
+        if (!data.newspapers || data.newspapers.length === 0) {
           container.innerHTML = '<p>No newspaper titles found.</p>';
           return;
         }
 
-        newspapers.slice(0, 12).forEach(paper => {
-          const title = paper.title || 'Untitled';
+        data.newspapers.forEach(paper => {
           const state = paper.state || 'Not available';
           const lccn = paper.lccn;
-          const detailsUrl = lccn
-            ? `https://chroniclingamerica.loc.gov/lccn/${lccn}/`
-            : '#';
+          const detailsUrl = `https://chroniclingamerica.loc.gov/lccn/${lccn}/`;
 
           const card = document.createElement('div');
           card.className = 'paper-card';
           card.innerHTML = `
-            <h2>${title}</h2>
+            <h2>${paper.title}</h2>
             <p><strong>State:</strong> ${state}</p>
             <a href="${detailsUrl}" target="_blank">View Details</a>
           `;
