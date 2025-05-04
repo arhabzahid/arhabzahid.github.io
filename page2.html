@@ -79,7 +79,7 @@
   
         const container = document.getElementById('newspapers');
         container.innerHTML = '';
-        data.newspapers.slice(0, 12).forEach(paper => {
+        data.newspapers.slice(0, 50).forEach(paper => {
         
           const state = paper.state || 'Not available';
           const lccn = paper.lccn;
