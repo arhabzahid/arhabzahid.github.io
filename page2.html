@@ -80,7 +80,7 @@
         const container = document.getElementById('newspapers');
         container.innerHTML = '';
         data.newspapers.slice(0, 12).forEach(paper => {
-          const city = paper.place_of_publication || 'Not available';
+        
           const state = paper.state || 'Not available';
           const lccn = paper.lccn;
           const detailsUrl = `https://chroniclingamerica.loc.gov/lccn/${lccn}/`;
@@ -89,7 +89,7 @@
           card.className = 'paper-card';
           card.innerHTML = `
             <h2>${paper.title}</h2>
-            <p><strong>City:</strong> ${city}</p>
+            
             <p><strong>State:</strong> ${state}</p>
             <a href="${detailsUrl}" target="_blank">View Details</a>
           `;
