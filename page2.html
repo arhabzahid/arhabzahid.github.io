@@ -127,12 +127,8 @@
       }
     }
 
-    // Load Issues Function
-    
-    // Load Issues Function
     async function loadIssues() {
       try {
-        // Example LCCN and date (you should replace with dynamic or user-selected data)
         const lccn = 'sn85038615';  // Replace with a valid LCCN
         const date = '1900-01-01';  // Replace with a valid date in YYYY-MM-DD format
         
@@ -143,8 +139,9 @@
         const proxy = 'https://api.allorigins.win/raw?url=';
         const res = await fetch(proxy + encodeURIComponent(url));
         
-        // Check for successful response
+        // Check if response is successful
         if (!res.ok) {
+          console.error('Error fetching data:', res.status, res.statusText);
           throw new Error('Failed to fetch data');
         }
 
@@ -177,6 +174,10 @@
         document.getElementById('issues-list').innerHTML = '<p>Could not load issues. Please try again later.</p>';
       }
     }
+
+    loadIssues();
+
+
 
 
     // Show and Hide Sections
