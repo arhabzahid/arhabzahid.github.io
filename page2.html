@@ -79,14 +79,16 @@
         const data = await response.json();
 
         const title = data.title || "Title not available";
-        const date = data.date_issued || "Date not available";
-        const format = data.type || "Format not available";
+const date = data.date_issued || "Date not available";
+const format = "Newspaper page"; // Static label since format isn't reliable in JSON
 
-        const newsDetails = `
-          <h2>${title}</h2>
-          <p><strong>Issued Date:</strong> ${date}</p>
-          <p><strong>Format:</strong> ${format}</p>
-        `;
+const newsDetails = `
+  <h2>${title}</h2>
+  <p><strong>Issued Date:</strong> ${date}</p>
+  <p><strong>Format:</strong> ${format}</p>
+`;
+
+        
 
         detailsDiv.innerHTML = newsDetails;
       } catch (error) {
