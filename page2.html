@@ -11,15 +11,25 @@
     const url = 'https://corsproxy.io/?https://chroniclingamerica.loc.gov/newspapers/feed/';
 
     fetch(url)
-      .then(response => response.text())
+      .then(response => {
+        console.log("Response status:", response.status);  // Check if the fetch succeeded
+        return response.text();
+      })
       .then(str => {
+        console.log("Raw XML:", str);  // Log the raw XML response to debug
         const parser = new DOMParser();
         const xml = parser.parseFromString(str, 'application/xml');
         
-        // DEBUG: log full XML to inspect it
-        console.log(xml);
-
+        // Check if the XML is correctly parsed
+        const parserError = xml.querySelector('parsererror');
+        if (parserError) {
+          console.error('XML Parsing Error:', parserError.textContent);
+          document.getElementById('titles-list').innerHTML = '<li>Failed to parse XML.</li>';
+          return;
+        }
+        
         const items = xml.getElementsByTagName('item');
+        console.log("Number of items found:", items.length);  // Log number of items found
         const list = document.getElementById('titles-list');
 
         if (items.length === 0) {
