@@ -11,60 +11,59 @@
 
   <script>
     // Set the API URL for searching newspaper titles
-    const apiUrl = 'https://chroniclingamerica.loc.gov/newspapers/';
+    const apiUrl = 'https://chroniclingamerica.loc.gov/newspapers/?format=json';  // Ensuring the format is JSON
 
     // Fetch the data from the API
-    fetch(apiUrl, {
-      headers: {
-        'Accept': 'application/json'  // Request the response in JSON format
-      }
-    })
-    .then(response => {
-      // Check if the response is okay (status 200)
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      return response.text();  // Get the response as text (we'll inspect this first)
-    })
-    .then(text => {
-      // Log the raw response text to see what we are getting
-      console.log('Raw Response Text:', text);
-
-      // If the response is HTML (error page, etc.), handle it
-      if (text.includes('<html>')) {
-        console.error('HTML Response detected. This might be an error page.');
-        return;
-      }
-
-      // Try to parse the text as JSON
-      try {
-        const data = JSON.parse(text);
-        console.log('Parsed JSON Data:', data);
-
-        // Check if data is in the expected format
-        if (data && data.titles) {
-          // Extract titles from the response data
-          const titles = data.titles.map(item => item.title);
-          console.log('Newspaper Titles:', titles);
-
-          // Display the titles in the HTML page
-          const listElement = document.getElementById('newspaper-titles');
-          titles.forEach(title => {
-            const listItem = document.createElement('li');
-            listItem.textContent = title;
-            listElement.appendChild(listItem);
-          });
-        } else {
-          console.error('Unexpected data format:', data);
+    fetch(apiUrl)
+      .then(response => {
+        // Check if the response is okay (status 200)
+        if (!response.ok) {
+          throw new Error('Network response was not ok. Status: ' + response.status);
         }
-      } catch (error) {
-        console.error('Failed to parse JSON:', error);
-      }
-    })
-    .catch(error => {
-      // Log any errors during the fetch or parsing process
-      console.error('Error fetching data:', error);
-    });
+        return response.text();  // Get the response as text (for debugging purposes)
+      })
+      .then(text => {
+        // Log the raw response text to see what we are getting
+        console.log('Raw Response Text:', text);
+
+        // Check if the response looks like HTML (indicating an error page or unexpected response)
+        if (text.includes('<html>')) {
+          console.error('HTML Response detected. This might be an error page.');
+          alert('Error: Received an HTML response, which suggests there might be an issue with the API or the URL.');
+          return;
+        }
+
+        // Try to parse the text as JSON
+        try {
+          const data = JSON.parse(text);
+          console.log('Parsed JSON Data:', data);
+
+          // Check if the 'titles' property exists
+          if (data && data.newspapers) {
+            const titles = data.newspapers.map(item => item.title);
+            console.log('Newspaper Titles:', titles);
+
+            // Display the titles in the HTML page
+            const listElement = document.getElementById('newspaper-titles');
+            titles.forEach(title => {
+              const listItem = document.createElement('li');
+              listItem.textContent = title;
+              listElement.appendChild(listItem);
+            });
+          } else {
+            console.error('Unexpected data format:', data);
+            alert('Error: Unexpected data format. No titles found.');
+          }
+        } catch (error) {
+          console.error('Failed to parse JSON:', error);
+          alert('Error: Failed to parse the response as JSON.');
+        }
+      })
+      .catch(error => {
+        // Log any errors during the fetch or parsing process
+        console.error('Error fetching data:', error);
+        alert('Error: There was an issue fetching the data.');
+      });
   </script>
 </body>
 </html>
