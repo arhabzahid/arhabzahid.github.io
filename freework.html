@@ -68,7 +68,7 @@
 
     
   function fetchNewsDetails() {
-    const apiUrl = 'https://cors-anywhere.herokuapp.com/https://chroniclingamerica.loc.gov/lccn/sn85038615.rdf';  // Using CORS proxy
+    const apiUrl = 'https://cors-anywhere.herokuapp.com/https://chroniclingamerica.loc.gov/lccn/sn83030214/1905-01-15/ed-1/seq-25.rdf';
     fetch(apiUrl)
       .then(response => response.text())
       .then(data => {
@@ -78,9 +78,9 @@
         const xmlDoc = parser.parseFromString(data, "application/xml");
 
         // Extracting title, issued date, and format using namespaces
-        const title = xmlDoc.getElementsByTagNameNS('http://purl.org/dc/elements/1.1/', 'title')[0] ? xmlDoc.getElementsByTagNameNS('http://purl.org/dc/elements/1.1/', 'title')[0].textContent : 'Title not available';
-        const issuedDate = xmlDoc.getElementsByTagNameNS('http://purl.org/dc/terms/', 'issued')[0] ? xmlDoc.getElementsByTagNameNS('http://purl.org/dc/terms/', 'issued')[0].textContent : 'Date not available';
-        const format = xmlDoc.getElementsByTagNameNS('http://purl.org/dc/elements/1.1/', 'format')[0] ? xmlDoc.getElementsByTagNameNS('http://purl.org/dc/elements/1.1/', 'format')[0].textContent : 'Format not available';
+        const title = xmlDoc.getElementsByTagNameNS('http://purl.org/dc/terms/', 'title')[0]?.textContent || 'Title not available';
+const issuedDate = xmlDoc.getElementsByTagNameNS('http://purl.org/dc/terms/', 'issued')[0]?.textContent || 'Date not available';
+const format = xmlDoc.getElementsByTagNameNS('http://purl.org/dc/elements/1.1/', 'format')[0]?.textContent || 'Format not available';
 
         // Log values to check if we're getting anything
         console.log("Title:", title);
