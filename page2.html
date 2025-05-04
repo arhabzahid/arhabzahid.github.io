@@ -35,35 +35,31 @@
     const apiUrl = "https://chroniclingamerica.loc.gov/newspapers/0.json";
 
     // Fetch the newspaper titles
-    fetch(apiUrl)
-      .then((response) => response.json())
-      .then((data) => {
-        if (data && data.newspapers) {
-          displayTitles(data.newspapers);
-        } else {
-          const titleList = document.getElementById('title-list');
-          const li = document.createElement('li');
-          li.textContent = "No titles available.";
-          titleList.appendChild(li);
-        }
-      })
-      .catch((error) => {
-        console.error("Error fetching data: ", error);
-        const titleList = document.getElementById('title-list');
-        const li = document.createElement('li');
-        li.textContent = "Failed to load titles.";
-        titleList.appendChild(li);
-      });
+    fetch(apiUrl, {
+  headers: {
+    'Accept': 'application/json'
+  }
+})
+.then((response) => response.json())
+.then((data) => {
+  console.log(data);  // Log the data to check its structure
+  if (data && data.newspapers) {
+    displayTitles(data.newspapers);
+  } else {
+    const titleList = document.getElementById('title-list');
+    const li = document.createElement('li');
+    li.textContent = "No titles available.";
+    titleList.appendChild(li);
+  }
+})
+.catch((error) => {
+  console.error("Error fetching data: ", error);
+  const titleList = document.getElementById('title-list');
+  const li = document.createElement('li');
+  li.textContent = "Failed to load titles.";
+  titleList.appendChild(li);
+});
 
-    // Function to display the newspaper titles
-    function displayTitles(titles) {
-      const titleList = document.getElementById('title-list');
-      titles.forEach((title) => {
-        const li = document.createElement('li');
-        li.textContent = title.title; // Assuming 'title' is the property that holds the newspaper title
-        titleList.appendChild(li);
-      });
-    }
   </script>
 </body>
 </html>
