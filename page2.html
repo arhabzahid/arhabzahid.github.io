@@ -58,8 +58,8 @@
   <script>
     async function loadNewspapers() {
       try {
-        // Use a new CORS proxy service or your own
-        const res = await fetch('https://api.allorigins.win/get?url=' + encodeURIComponent('https://chroniclingamerica.loc.gov/newspapers.json'));
+        // Using CORS Proxy (cors-anywhere)
+        const res = await fetch('https://cors-anywhere.herokuapp.com/https://chroniclingamerica.loc.gov/newspapers.json');
         const data = await res.json();
 
         const container = document.getElementById('newspapers');
