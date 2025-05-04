@@ -67,39 +67,47 @@
     }
 
     
-  function fetchNewsDetails() {
-    const apiUrl = 'https://cors-anywhere.herokuapp.com/https://chroniclingamerica.loc.gov/lccn/sn83030214/1905-01-15/ed-1/seq-25.rdf';
-    fetch(apiUrl)
-      .then(response => response.text())
-      .then(data => {
-        console.log(data);  // Log the raw XML response to inspect its structure
+    function fetchNewsDetails() {
+  const apiUrl = 'https://cors-anywhere.herokuapp.com/https://chroniclingamerica.loc.gov/lccn/sn83030214/1905-01-15/ed-1/seq-25.rdf';
 
-        const parser = new DOMParser();
-        const xmlDoc = parser.parseFromString(data, "application/xml");
+  fetch(apiUrl)
+    .then(response => response.text())
+    .then(data => {
+      const parser = new DOMParser();
+      const xmlDoc = parser.parseFromString(data, "application/xml");
 
-        // Extracting title, issued date, and format using namespaces
-        const title = xmlDoc.getElementsByTagNameNS('http://purl.org/dc/terms/', 'title')[0]?.textContent || 'Title not available';
-const issuedDate = xmlDoc.getElementsByTagNameNS('http://purl.org/dc/terms/', 'issued')[0]?.textContent || 'Date not available';
-const format = xmlDoc.getElementsByTagNameNS('http://purl.org/dc/elements/1.1/', 'format')[0]?.textContent || 'Format not available';
+      const descriptions = xmlDoc.getElementsByTagName("rdf:Description");
 
-        // Log values to check if we're getting anything
-        console.log("Title:", title);
-        console.log("Issued Date:", issuedDate);
-        console.log("Format:", format);
+      let title = "Title not available";
+      let issuedDate = "Date not available";
+      let format = "Format not available";
 
-        // Display the fetched details in the news section
-        const newsContent = `
-          <h3>${title}</h3>
-          <p><strong>Issued Date:</strong> ${issuedDate}</p>
-          <p><strong>Format:</strong> ${format}</p>
-        `;
-        document.getElementById('newsDetails').innerHTML = newsContent;
-      })
-      .catch(error => {
-        console.error("Error fetching news data:", error);
-        document.getElementById('newsDetails').innerHTML = "<p>Failed to load news details. Please try again later.</p>";
-      });
-  }
+      for (let i = 0; i < descriptions.length; i++) {
+        const desc = descriptions[i];
+
+        const titleElem = desc.getElementsByTagNameNS('http://purl.org/dc/terms/', 'title')[0];
+        if (titleElem) title = titleElem.textContent;
+
+        const dateElem = desc.getElementsByTagNameNS('http://purl.org/dc/terms/', 'issued')[0];
+        if (dateElem) issuedDate = dateElem.textContent;
+
+        const formatElem = desc.getElementsByTagNameNS('http://purl.org/dc/elements/1.1/', 'format')[0];
+        if (formatElem) format = formatElem.textContent;
+      }
+
+      const newsContent = `
+        <h3>${title}</h3>
+        <p><strong>Issued Date:</strong> ${issuedDate}</p>
+        <p><strong>Format:</strong> ${format}</p>
+      `;
+      document.getElementById('newsDetails').innerHTML = newsContent;
+    })
+    .catch(error => {
+      console.error("Error fetching news data:", error);
+      document.getElementById('newsDetails').innerHTML = "<p>Failed to load news details. Please try again later.</p>";
+    });
+}
+
 
 
 
