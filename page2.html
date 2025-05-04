@@ -16,22 +16,20 @@
         const parser = new DOMParser();
         const xml = parser.parseFromString(str, 'application/xml');
 
-        const items = xml.getElementsByTagName('item');
+        // Use namespace-aware querySelectorAll
+        const titles = Array.from(xml.querySelectorAll('item title'));
+        const links = Array.from(xml.querySelectorAll('item link'));
         const list = document.getElementById('titles-list');
 
-        if (items.length === 0) {
+        if (titles.length === 0 || links.length === 0) {
           list.innerHTML = '<li>No newspaper titles found.</li>';
         } else {
-          for (let i = 0; i < items.length; i++) {
-            const title = items[i].getElementsByTagName('title')[0].textContent;
-            const link = items[i].getElementsByTagName('link')[0].textContent;
-
+          for (let i = 0; i < titles.length; i++) {
             const li = document.createElement('li');
             const a = document.createElement('a');
-            a.href = link;
-            a.textContent = title;
-            a.target = "_blank";
-
+            a.href = links[i].textContent;
+            a.textContent = titles[i].textContent;
+            a.target = '_blank';
             li.appendChild(a);
             list.appendChild(li);
           }
