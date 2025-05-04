@@ -128,25 +128,38 @@
     }
 
     // Load Issues Function
+    
+    // Load Issues Function
     async function loadIssues() {
       try {
         // Example LCCN and date (you should replace with dynamic or user-selected data)
         const lccn = 'sn85038615';  // Replace with a valid LCCN
         const date = '1900-01-01';  // Replace with a valid date in YYYY-MM-DD format
+        
+        // Construct the URL for the API call
+        const url = `https://chroniclingamerica.loc.gov/lccn/${lccn}/date/${date}/ed-1.json`;
+        console.log("Fetching issues from URL: ", url);  // Debugging: Log the URL to verify
+
         const proxy = 'https://api.allorigins.win/raw?url=';
-        const res = await fetch(proxy + encodeURIComponent(`https://chroniclingamerica.loc.gov/lccn/${lccn}/date/${date}/ed-1.json`));
+        const res = await fetch(proxy + encodeURIComponent(url));
+        
+        // Check for successful response
+        if (!res.ok) {
+          throw new Error('Failed to fetch data');
+        }
+
         const data = await res.json();
-  
+        console.log("Fetched issues data: ", data);  // Debugging: Log the returned data
+
         const container = document.getElementById('issues-list');
         container.innerHTML = '';
-  
-        if (data) {
-          const issues = data.items || [];
-          issues.forEach(issue => {
+
+        if (data.items && data.items.length > 0) {
+          data.items.forEach(issue => {
             const issueDate = issue.date || 'Not available';
             const issueTitle = issue.title || 'No title available';
             const issueLink = `https://chroniclingamerica.loc.gov/lccn/${lccn}/date/${date}/ed-1/seq-${issue.seq}.json`;
-  
+
             const card = document.createElement('div');
             card.className = 'paper-card';
             card.innerHTML = `
@@ -164,6 +177,7 @@
         document.getElementById('issues-list').innerHTML = '<p>Could not load issues. Please try again later.</p>';
       }
     }
+
 
     // Show and Hide Sections
     function showNewspapers() {
