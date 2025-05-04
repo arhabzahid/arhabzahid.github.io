@@ -44,7 +44,7 @@
     const listDiv = document.getElementById('titlesList');
     listDiv.innerHTML = 'Loading...';
     try {
-      const response = await fetch("https://corsproxy.io/?https://chroniclingamerica.loc.gov/newspapers.json");
+      const response = await fetch("https://chroniclingamerica.loc.gov/newspapers.json");
       const data = await response.json();
 
       const titles = data.newspapers || [];
@@ -61,7 +61,7 @@
         listDiv.appendChild(div);
       });
     } catch (err) {
-      listDiv.innerHTML = "Failed to load newspaper titles.";
+      listDiv.innerHTML = "Failed to load newspaper titles. Try opening this page with Live Server or hosting it.";
     }
   }
 </script>
