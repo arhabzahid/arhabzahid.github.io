@@ -3,87 +3,97 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Test News Details</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <title>Newspaper Viewer</title>
   <style>
     body {
-      background-image: url('https://cdn.wallpapersafari.com/5/96/b3DXM7.jpg');
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-attachment: fixed;
-      background-position: center;
       font-family: Arial, sans-serif;
-      color: white;
-      margin: 0;
-      padding: 0;
+      padding: 1rem;
+      background: #f4f4f4;
     }
-    .container {
-      background-color: rgba(0, 0, 0, 0.7);
-      border-radius: 10px;
-      padding: 20px;
-      margin-top: 40px;
-    }
-    h1, h2 {
+    h1 {
       text-align: center;
-      color: #f8f9fa;
     }
-    .btn-custom {
-      margin-top: 10px;
+    .issue-list {
+      margin: 1rem 0;
+      padding: 0;
+      list-style: none;
     }
-    .news-content {
-      text-align: left;
-      margin-top: 20px;
+    .issue-list li {
+      background: white;
+      padding: 10px;
+      margin-bottom: 5px;
+      cursor: pointer;
+      border: 1px solid #ccc;
+    }
+    .issue-list li:hover {
+      background-color: #e6f7ff;
+    }
+    #news-details {
+      background: white;
+      padding: 1rem;
+      border: 1px solid #ccc;
+      margin-top: 1rem;
     }
   </style>
 </head>
 <body>
 
-  <div class="container" id="homePage">
-    <h1>News Test</h1>
-    <div class="d-grid gap-2 col-6 mx-auto">
-      <button class="btn btn-primary btn-custom" onclick="fetchNewsDetails()">Fetch News Details</button>
-    </div>
-  </div>
+  <h1>Newspaper Viewer</h1>
 
-  <div class="container" id="detailsPage" style="display: none;">
-    <h2>News Details</h2>
-    <div id="newsDetails" class="news-content"></div>
+  <ul class="issue-list" id="issue-list">
+    <!-- Issues will be added here -->
+  </ul>
+
+  <div id="news-details">
+    <p>Select a newspaper issue to view details.</p>
   </div>
 
   <script>
-    function fetchNewsDetails() {
-      const apiUrl = 'https://chroniclingamerica.loc.gov/lccn/sn85038411/1915-02-10/ed-1.json';  // A valid endpoint
+    // Replace this with your actual list of issues (or load dynamically)
+    const issues = [
+      { url: "https://chroniclingamerica.loc.gov/lccn/sn85038615/1903-01-29/ed-1.json", date_issued: "1903-01-29" },
+      { url: "https://chroniclingamerica.loc.gov/lccn/sn85038615/1903-01-30/ed-1.json", date_issued: "1903-01-30" },
+      { url: "https://chroniclingamerica.loc.gov/lccn/sn85038615/1903-01-31/ed-1.json", date_issued: "1903-01-31" }
+      // Add more as needed
+    ];
 
-      console.log("Fetching news details...");
+    const issueList = document.getElementById("issue-list");
 
-      fetch(apiUrl)
-        .then(response => response.json())
-        .then(data => {
-          // Debugging: Log the entire data object to inspect its structure
-          console.log('Fetched Data:', data);
+    issues.forEach(issue => {
+      const li = document.createElement("li");
+      li.textContent = `Issue Date: ${issue.date_issued}`;
+      li.addEventListener("click", () => {
+        fetchNewsDetails(issue.url);
+      });
+      issueList.appendChild(li);
+    });
 
-          if (data) {
-            const title = data.title || 'Title not available';
-            const dateIssued = data.date_issued || 'Date not available';
-            const description = data.description || 'Description not available';
+    async function fetchNewsDetails(url) {
+      const detailsDiv = document.getElementById("news-details");
+      detailsDiv.innerHTML = "<p>Loading news details...</p>";
 
-            // Displaying fetched details
-            const newsContent = `
-              <h3>${title}</h3>
-              <p><strong>Issued Date:</strong> ${dateIssued}</p>
-              <p><strong>Description:</strong> ${description}</p>
-            `;
-            document.getElementById('newsDetails').innerHTML = newsContent;
-            document.getElementById("homePage").style.display = "none";
-            document.getElementById("detailsPage").style.display = "block";
-          } else {
-            document.getElementById('newsDetails').innerHTML = "<p>No data found. Please try another news source.</p>";
-          }
-        })
-        .catch(error => {
-          console.error("Error fetching news data:", error);
-          document.getElementById('newsDetails').innerHTML = "<p>Failed to load news details. Please try again later.</p>";
-        });
+      try {
+        const response = await fetch(url);
+        if (!response.ok) throw new Error("Network response was not ok");
+
+        const data = await response.json();
+
+        const title = data.title || "Title not available";
+        const date = data.date_issued || "Date not available";
+        const format = data.type || "Format not available";
+
+        const newsDetails = `
+          <h2>${title}</h2>
+          <p><strong>Issued Date:</strong> ${date}</p>
+          <p><strong>Format:</strong> ${format}</p>
+        `;
+
+        detailsDiv.innerHTML = newsDetails;
+      } catch (error) {
+        console.error("Error fetching news details:", error);
+        detailsDiv.innerHTML =
+          "<p>Failed to load news details. Please try again later.</p>";
+      }
     }
   </script>
 
