@@ -60,34 +60,45 @@
       document.getElementById("detailsPage").style.display = "block";
       fetchNewsDetails();
     }
-
+  
     function showHome() {
       document.getElementById("homePage").style.display = "block";
       document.getElementById("detailsPage").style.display = "none";
     }
-
+  
     function fetchNewsDetails() {
-      const apiUrl = "https://chroniclingamerica.loc.gov/lccn/sn83030214/1905-01-15/ed-1/seq-25.json";
+      const apiUrl = 'https://cors-anywhere.herokuapp.com/https://chroniclingamerica.loc.gov/lccn/sn85038615.json';  // Using CORS proxy for JSON endpoint
       fetch(apiUrl)
         .then(response => response.json())
         .then(data => {
-          const title = data.title || "Title not available";
-          const date = data.date_issued || "Date not available";
-          const imageUrl = data.jp2 || "Image not available";
-
-          const content = `
+          console.log(data);  // Log the response to inspect its structure
+  
+          // Extract the relevant details from the JSON data
+          const title = data.title || 'Title not available';
+          const issuedDate = data.date || 'Date not available';
+          const imageUrl = data.image_url || 'Image not available';
+  
+          // Log values to check if we're getting anything
+          console.log("Title:", title);
+          console.log("Issued Date:", issuedDate);
+          console.log("Image URL:", imageUrl);
+  
+          // Display the fetched details in the news section
+          const newsContent = `
             <h3>${title}</h3>
-            <p><strong>Issued Date:</strong> ${date}</p>
-            <p><strong>Image:</strong> <a href="${imageUrl}" target="_blank">View Image</a></p>
+            <p><strong>Issued Date:</strong> ${issuedDate}</p>
+            <p><strong>Format:</strong> Newspaper</p>
+            ${imageUrl ? `<img src="${imageUrl}" alt="Newspaper page" class="img-fluid mt-3"/>` : ''}
           `;
-          document.getElementById("newsDetails").innerHTML = content;
+          document.getElementById('newsDetails').innerHTML = newsContent;
         })
         .catch(error => {
-          console.error("Error fetching data:", error);
-          document.getElementById("newsDetails").innerHTML = "<p>Failed to load news details.</p>";
+          console.error("Error fetching news data:", error);
+          document.getElementById('newsDetails').innerHTML = "<p>Failed to load news details. Please try again later.</p>";
         });
     }
   </script>
+  
 
 </body>
 </html>
