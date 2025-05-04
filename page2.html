@@ -5,8 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Historic Newspaper Explorer</title>
   <style>
-    
-      body {
+    body {
       background-image: url('https://cdn.wallpapersafari.com/5/96/b3DXM7.jpg');
       background-size: cover;
       background-repeat: no-repeat;
@@ -22,10 +21,9 @@
       border-radius: 10px;
       padding: 20px;
       margin-top: 40px;
-    }
-    h1,span,hr,hr {
       text-align: center;
-    
+    }
+    h1, span, hr {
       color: rgba(0, 0, 0, 0.7);
     }
     h2 {
@@ -33,9 +31,19 @@
       color: #faf8fa;
     }
     .btn-custom {
-      margin-top: 10px;
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #00c6ff;
+      border: none;
+      color: white;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+      text-decoration: none;
     }
-    
+    .btn-custom:hover {
+      background-color: #0088b3;
+    }
     .newspapers {
       display: flex;
       flex-wrap: wrap;
@@ -65,6 +73,18 @@
   </style>
 </head>
 <body>
+
+  <!-- Homepage Content -->
+  <div class="container">
+    <h1>Welcome to Historic Newspaper Explorer</h1>
+    <h2>Explore the past through historic newspapers</h2>
+    <div>
+      <a href="newspapers.html" class="btn-custom">View Historic Newspapers</a>
+      <a href="second-feature.html" class="btn-custom">Explore Other Features</a>
+    </div>
+  </div>
+
+  <!-- Newspaper Listing Page (newspapers.html) -->
   <div class="overlay">
     <h1>Explore Historic Newspapers</h1>
     <div id="newspapers" class="newspapers"></div>
@@ -89,7 +109,6 @@
           card.className = 'paper-card';
           card.innerHTML = `
             <h2>${paper.title}</h2>
-            
             <p><strong>State:</strong> ${state}</p>
             <a href="${detailsUrl}" target="_blank">View Details</a>
           `;
@@ -103,9 +122,10 @@
   
     loadNewspapers();
   </script>
-  
+
+  <hr class="horizontal rule ">
+  <span>May 4, 2025 - Created by Arhab Zahid</span>
+  <hr class="horizontal rule">
+
 </body>
-<hr class="horizontal rule ">
-<span>May 4, 2025 - Created by Arhab Zahid</span>
-<hr class="horzontal rule">
 </html>
