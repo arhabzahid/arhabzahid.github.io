@@ -8,7 +8,7 @@
     body {
       font-family: 'Segoe UI', sans-serif;
       margin: 0;
-      background: url('https://via.placeholder.com/1920x1080.png?text=Historic+Newspapers') no-repeat center center fixed;
+      background: url('https://upload.wikimedia.org/wikipedia/commons/4/48/Newspaper_Stack.jpg') no-repeat center center fixed;
       background-size: cover;
       color: #fff;
     }
@@ -58,9 +58,9 @@
   <script>
     async function loadNewspapers() {
       try {
-        const res = await fetch('https://api.allorigins.win/get?url=' + encodeURIComponent('https://chroniclingamerica.loc.gov/newspapers.json'));
-        const wrappedData = await res.json();
-        const data = JSON.parse(wrappedData.contents);
+        const proxy = 'https://thingproxy.freeboard.io/fetch/';
+        const res = await fetch(proxy + 'https://chroniclingamerica.loc.gov/newspapers.json');
+        const data = await res.json();
 
         const container = document.getElementById('newspapers');
         data.newspapers.slice(0, 12).forEach(paper => {
@@ -70,7 +70,7 @@
             <h2>${paper.title}</h2>
             <p><strong>City:</strong> ${paper.place_of_publication || 'Not available'}</p>
             <p><strong>State:</strong> ${paper.state || 'Not available'}</p>
-            <a href="https://chroniclingamerica.loc.gov${paper.url}.json" target="_blank">View Details</a>
+            <a href="https://chroniclingamerica.loc.gov${paper.url}" target="_blank">View Details</a>
           `;
           container.appendChild(card);
         });
