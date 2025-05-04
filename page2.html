@@ -8,9 +8,9 @@
   <ul id="titles-list"></ul>
 
   <script>
-    const url = 'https://corsproxy.io/?https://chroniclingamerica.loc.gov/newspapers/feed/';
+   
 
-    fetch(url)
+    fetch('https://chroniclingamerica.loc.gov/lccn/sn86069873.json')
       .then(response => {
         console.log("Response status:", response.status);  // Check if the fetch succeeded
         return response.text();
