@@ -70,7 +70,8 @@
             <h2>${paper.title}</h2>
             <p><strong>City:</strong> ${paper.place_of_publication || 'Not available'}</p>
             <p><strong>State:</strong> ${paper.state || 'Not available'}</p>
-            <a href="https://chroniclingamerica.loc.gov${paper.url}.json" target="_blank">View Details</a>
+          <a href="https://chroniclingamerica.loc.gov${paper.url}/.json" target="_blank">View Details</a>
+
           `;
           container.appendChild(card);
         });
