@@ -66,33 +66,25 @@
       document.getElementById("detailsPage").style.display = "none";
     }
 
-    // Updated fetchNewsDetails function
+    // Function to fetch news details
     function fetchNewsDetails() {
-      const apiUrl = 'https://chroniclingamerica.loc.gov/newspapers/1905-01-15/sn85038615.json';  // Use the appropriate URL
-
+      const apiUrl = 'https://cors-anywhere.herokuapp.com/https://chroniclingamerica.loc.gov/lccn/sn85038615/1903-01-29/ed-1.json';  // Using CORS proxy
       fetch(apiUrl)
-        .then(response => response.json()) // Parse the JSON response
+        .then(response => response.json())
         .then(data => {
-          console.log(data); // Log the JSON response to check the structure
+          console.log(data);  // Log the raw JSON response to inspect its structure
 
-          // Assuming each object in the array contains `url` and `date_issued`
-          const articles = data.map(item => {
-            const url = item.url || 'URL not available';  // Extract URL if available
-            const dateIssued = item.date_issued || 'Date not available';  // Extract date if available
-            
-            return { url, dateIssued };
-          });
+          // Check if we received data and extract fields
+          const title = data.title || 'Title not available';
+          const dateIssued = data.date_issued || 'Date not available';
+          const description = data.description || 'Description not available';
 
-          // Display the fetched details
-          const newsContent = articles.map(article => {
-            return `
-              <div>
-                <p><strong>Date Issued:</strong> ${article.dateIssued}</p>
-                <p><a href="${article.url}" target="_blank">View Image</a></p>
-              </div>
-            `;
-          }).join('');
-          
+          // Display the fetched details in the news section
+          const newsContent = `
+            <h3>${title}</h3>
+            <p><strong>Issued Date:</strong> ${dateIssued}</p>
+            <p><strong>Description:</strong> ${description}</p>
+          `;
           document.getElementById('newsDetails').innerHTML = newsContent;
         })
         .catch(error => {
