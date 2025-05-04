@@ -38,21 +38,11 @@ fetch(apiUrl, {
     'Accept': 'application/json'
   }
 })
-.then(response => {
-    return response.text();  // Get the raw text of the response
-})
-.then(text => {
-    if (text.includes('<html>')) {
-        console.error('HTML Response detected. This might be an error page or unexpected content.');
-        console.log('Response Text:', text);  // Log the HTML content for debugging
-    } else {
-        try {
-            const data = JSON.parse(text);  // Try parsing as JSON
-            console.log('Parsed JSON Data:', data);
-        } catch (e) {
-            console.error('Failed to parse JSON:', e);
-        }
-    }
+.then(response => response.json())
+.then(data => {
+  console.log('Data:', data);  // Log the full data
+  const titles = data.data.map(item => item.title);  // Access titles
+  console.log('Titles:', titles);
 })
 
   .catch(error => {
