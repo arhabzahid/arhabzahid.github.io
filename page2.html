@@ -2,102 +2,84 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Newspaper Viewer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Historic Newspaper Explorer</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      padding: 1rem;
-      background: #f4f4f4;
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background: url('https://www.loc.gov/static/portals/chroniclingamerica/images/chronicling-america.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #fff;
+    }
+    .overlay {
+      background: rgba(0, 0, 0, 0.7);
+      padding: 2rem;
+      min-height: 100vh;
     }
     h1 {
       text-align: center;
+      margin-bottom: 2rem;
     }
-    .issue-list {
-      margin: 1rem 0;
-      padding: 0;
-      list-style: none;
+    .newspapers {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.5rem;
     }
-    .issue-list li {
-      background: white;
-      padding: 10px;
-      margin-bottom: 5px;
-      cursor: pointer;
-      border: 1px solid #ccc;
-    }
-    .issue-list li:hover {
-      background-color: #e6f7ff;
-    }
-    #news-details {
-      background: white;
+    .paper-card {
+      background: #222;
+      border-radius: 12px;
       padding: 1rem;
-      border: 1px solid #ccc;
-      margin-top: 1rem;
+      width: 300px;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+    }
+    .paper-card h2 {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+    .paper-card p {
+      font-size: 0.9rem;
+    }
+    .paper-card a {
+      display: inline-block;
+      margin-top: 0.5rem;
+      color: #00c6ff;
+      text-decoration: none;
     }
   </style>
 </head>
 <body>
-
-  <h1>Newspaper Viewer</h1>
-
-  <ul class="issue-list" id="issue-list">
-    <!-- Issues will be added here -->
-  </ul>
-
-  <div id="news-details">
-    <p>Select a newspaper issue to view details.</p>
+  <div class="overlay">
+    <h1>Explore Historic Newspapers</h1>
+    <div id="newspapers" class="newspapers"></div>
   </div>
 
   <script>
-    // Replace this with your actual list of issues (or load dynamically)
-    const issues = [
-      { url: "https://chroniclingamerica.loc.gov/lccn/sn85038615/1903-01-29/ed-1.json", date_issued: "1903-01-29" },
-      { url: "https://chroniclingamerica.loc.gov/lccn/sn85038615/1903-01-30/ed-1.json", date_issued: "1903-01-30" },
-      { url: "https://chroniclingamerica.loc.gov/lccn/sn85038615/1903-01-31/ed-1.json", date_issued: "1903-01-31" }
-      // Add more as needed
-    ];
-
-    const issueList = document.getElementById("issue-list");
-
-    issues.forEach(issue => {
-      const li = document.createElement("li");
-      li.textContent = `Issue Date: ${issue.date_issued}`;
-      li.addEventListener("click", () => {
-        fetchNewsDetails(issue.url);
-      });
-      issueList.appendChild(li);
-    });
-
-    async function fetchNewsDetails(url) {
-      const detailsDiv = document.getElementById("news-details");
-      detailsDiv.innerHTML = "<p>Loading news details...</p>";
-
+    async function loadNewspapers() {
       try {
-        const response = await fetch(url);
-        if (!response.ok) throw new Error("Network response was not ok");
+        const res = await fetch('https://chroniclingamerica.loc.gov/newspapers.json');
+        const data = await res.json();
 
-        const data = await response.json();
-
-        const title = data.title || "Title not available";
-const date = data.date_issued || "Date not available";
-const format = "Newspaper page"; // Static label since format isn't reliable in JSON
-
-const newsDetails = `
-  <h2>${title}</h2>
-  <p><strong>Issued Date:</strong> ${date}</p>
-  <p><strong>Format:</strong> ${format}</p>
-`;
-
-        
-
-        detailsDiv.innerHTML = newsDetails;
+        const container = document.getElementById('newspapers');
+        data.newspapers.slice(0, 12).forEach(paper => {
+          const card = document.createElement('div');
+          card.className = 'paper-card';
+          card.innerHTML = `
+            <h2>${paper.title}</h2>
+            <p><strong>City:</strong> ${paper.city}</p>
+            <p><strong>State:</strong> ${paper.state}</p>
+            <a href="https://chroniclingamerica.loc.gov${paper.url}json" target="_blank">View Details</a>
+          `;
+          container.appendChild(card);
+        });
       } catch (error) {
-        console.error("Error fetching news details:", error);
-        detailsDiv.innerHTML =
-          "<p>Failed to load news details. Please try again later.</p>";
+        console.error('Failed to load newspapers:', error);
+        document.getElementById('newspapers').innerHTML = '<p>Could not load newspapers. Please try again later.</p>';
       }
     }
-  </script>
 
+    loadNewspapers();
+  </script>
 </body>
 </html>
