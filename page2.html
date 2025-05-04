@@ -52,14 +52,16 @@
 
   <script>
     function fetchNewsDetails() {
-      const apiUrl = 'https://cors-anywhere.herokuapp.com/https://chroniclingamerica.loc.gov/lccn/sn85038411/1915-02-10/ed-1.json'; // A valid endpoint
+      const apiUrl = 'https://chroniclingamerica.loc.gov/lccn/sn85038411/1915-02-10/ed-1.json';  // A valid endpoint
+
+      console.log("Fetching news details...");
 
       fetch(apiUrl)
         .then(response => response.json())
         .then(data => {
-          // Debugging: Log the whole data object to check its structure
+          // Debugging: Log the entire data object to inspect its structure
           console.log('Fetched Data:', data);
-          
+
           if (data) {
             const title = data.title || 'Title not available';
             const dateIssued = data.date_issued || 'Date not available';
