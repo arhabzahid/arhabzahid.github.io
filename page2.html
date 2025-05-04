@@ -34,15 +34,22 @@
   </ul>
 
   <script>
-    // API URL for Chronicling America newspaper titles
-    const apiUrl = "https://chroniclingamerica.loc.gov/newspapers/";
+    // API URL for Chronicling America newspaper titles with pagination
+    const apiUrl = "https://chroniclingamerica.loc.gov/newspapers/1.json";
 
     // Fetch the newspaper titles
     fetch(apiUrl)
       .then((response) => response.json())
       .then((data) => {
-        // Call the function to display the titles from the API response
-        displayTitles(data);
+        if (data && data.newspapers) {
+          // Call the function to display the titles from the API response
+          displayTitles(data.newspapers);
+        } else {
+          const titleList = document.getElementById('title-list');
+          const li = document.createElement('li');
+          li.textContent = "No titles available.";
+          titleList.appendChild(li);
+        }
       })
       .catch((error) => {
         console.error("Error fetching data: ", error);
@@ -54,21 +61,12 @@
 
     // Function to display the newspaper titles
     function displayTitles(titles) {
-      // Check if titles data exists and is an array
-      if (Array.isArray(titles)) {
-        titles.forEach((title) => {
-          const titleList = document.getElementById('title-list');
-          const li = document.createElement('li');
-          li.textContent = title.name; // Assuming 'name' is the property that holds the title
-          titleList.appendChild(li);
-        });
-      } else {
-        // Handle case where titles are not available
-        const titleList = document.getElementById('title-list');
+      const titleList = document.getElementById('title-list');
+      titles.forEach((title) => {
         const li = document.createElement('li');
-        li.textContent = "No titles available.";
+        li.textContent = title.title; // Assuming 'title' is the property that holds the newspaper title
         titleList.appendChild(li);
-      }
+      });
     }
   </script>
 </body>
