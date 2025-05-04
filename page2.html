@@ -67,27 +67,24 @@
     }
 
     function fetchNewsDetails() {
-      const apiUrl = 'https://cors-anywhere.herokuapp.com/https://chroniclingamerica.loc.gov/lccn/sn83030214/1905-01-15/ed-1/seq-25.rdf';
+      const apiUrl = "https://chroniclingamerica.loc.gov/lccn/sn83030214/1905-01-15/ed-1/seq-25.json";
       fetch(apiUrl)
-        .then(response => response.text())
+        .then(response => response.json())
         .then(data => {
-          const parser = new DOMParser();
-          const xmlDoc = parser.parseFromString(data, "application/xml");
+          const title = data.title || "Title not available";
+          const date = data.date_issued || "Date not available";
+          const imageUrl = data.jp2 || "Image not available";
 
-          const title = xmlDoc.getElementsByTagNameNS('http://purl.org/dc/terms/', 'title')[0]?.textContent || 'Title not available';
-          const issuedDate = xmlDoc.getElementsByTagNameNS('http://purl.org/dc/terms/', 'issued')[0]?.textContent || 'Date not available';
-          const format = xmlDoc.getElementsByTagNameNS('http://purl.org/dc/elements/1.1/', 'format')[0]?.textContent || 'Format not available';
-
-          const newsContent = `
+          const content = `
             <h3>${title}</h3>
-            <p><strong>Issued Date:</strong> ${issuedDate}</p>
-            <p><strong>Format:</strong> ${format}</p>
+            <p><strong>Issued Date:</strong> ${date}</p>
+            <p><strong>Image:</strong> <a href="${imageUrl}" target="_blank">View Image</a></p>
           `;
-          document.getElementById('newsDetails').innerHTML = newsContent;
+          document.getElementById("newsDetails").innerHTML = content;
         })
         .catch(error => {
-          console.error("Error fetching news data:", error);
-          document.getElementById('newsDetails').innerHTML = "<p>Failed to load news details. Please try again later.</p>";
+          console.error("Error fetching data:", error);
+          document.getElementById("newsDetails").innerHTML = "<p>Failed to load news details.</p>";
         });
     }
   </script>
