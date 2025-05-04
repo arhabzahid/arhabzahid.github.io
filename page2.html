@@ -23,10 +23,8 @@
       margin-top: 40px;
       text-align: center;
     }
-   
-    
-    span,h1, h2{
-      color:whitesmoke;
+    h1, h2 {
+      color: #faf8fa;
     }
     .btn-custom {
       margin-top: 20px;
@@ -92,10 +90,10 @@
     <button class="btn-custom" onclick="hideNewspapers()">Back to Home</button>
   </div>
 
-  <!-- Second Feature Content (You can customize this later) -->
+  <!-- Second Feature Content (Issues) -->
   <div class="overlay" id="other-features" style="display: none;">
-    <h1>Explore Other Features</h1>
-    <p>This is a placeholder for other features. Customize as needed.</p>
+    <h1>Explore Newspaper Issues</h1>
+    <div id="issues-list" class="newspapers"></div>
     <button class="btn-custom" onclick="hideOtherFeatures()">Back to Home</button>
   </div>
 
@@ -129,6 +127,44 @@
       }
     }
 
+    // Load Issues Function
+    async function loadIssues() {
+      try {
+        // Example LCCN and date (you should replace with dynamic or user-selected data)
+        const lccn = 'sn85038615';  // Replace with a valid LCCN
+        const date = '1900-01-01';  // Replace with a valid date in YYYY-MM-DD format
+        const proxy = 'https://api.allorigins.win/raw?url=';
+        const res = await fetch(proxy + encodeURIComponent(`https://chroniclingamerica.loc.gov/lccn/${lccn}/date/${date}/ed-1.json`));
+        const data = await res.json();
+  
+        const container = document.getElementById('issues-list');
+        container.innerHTML = '';
+  
+        if (data) {
+          const issues = data.items || [];
+          issues.forEach(issue => {
+            const issueDate = issue.date || 'Not available';
+            const issueTitle = issue.title || 'No title available';
+            const issueLink = `https://chroniclingamerica.loc.gov/lccn/${lccn}/date/${date}/ed-1/seq-${issue.seq}.json`;
+  
+            const card = document.createElement('div');
+            card.className = 'paper-card';
+            card.innerHTML = `
+              <h2>${issueTitle}</h2>
+              <p><strong>Date:</strong> ${issueDate}</p>
+              <a href="${issueLink}" target="_blank">View Issue</a>
+            `;
+            container.appendChild(card);
+          });
+        } else {
+          container.innerHTML = '<p>No issues available for this date.</p>';
+        }
+      } catch (error) {
+        console.error('Failed to load newspaper issues:', error);
+        document.getElementById('issues-list').innerHTML = '<p>Could not load issues. Please try again later.</p>';
+      }
+    }
+
     // Show and Hide Sections
     function showNewspapers() {
       document.querySelector('.container').style.display = 'none';
@@ -139,6 +175,7 @@
     function showOtherFeatures() {
       document.querySelector('.container').style.display = 'none';
       document.getElementById('other-features').style.display = 'block';
+      loadIssues();  // Call the function to load issues here
     }
 
     function hideNewspapers() {
