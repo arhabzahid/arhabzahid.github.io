@@ -9,16 +9,13 @@
       font-family: Arial, sans-serif;
       margin: 20px;
     }
-
     h1 {
       color: #333;
     }
-
     ul {
       list-style-type: none;
       padding: 0;
     }
-
     li {
       background-color: #f4f4f4;
       padding: 10px;
@@ -34,15 +31,14 @@
   </ul>
 
   <script>
-    // API URL for Chronicling America newspaper titles with pagination
-     const apiUrl = "https://chroniclingamerica.loc.gov/newspapers/0.json";;
+    // Correct API URL for Chronicling America newspaper titles
+    const apiUrl = "https://chroniclingamerica.loc.gov/newspapers/0.json";
 
     // Fetch the newspaper titles
     fetch(apiUrl)
       .then((response) => response.json())
       .then((data) => {
         if (data && data.newspapers) {
-          // Call the function to display the titles from the API response
           displayTitles(data.newspapers);
         } else {
           const titleList = document.getElementById('title-list');
