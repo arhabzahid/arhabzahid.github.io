@@ -2,100 +2,61 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Newspaper Viewer</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
-  <style>
-    body {
-      background-image: url('https://cdn.wallpapersafari.com/5/96/b3DXM7.jpg');
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-attachment: fixed;
-      background-position: center;
-      font-family: Arial, sans-serif;
-      color: white;
-      margin: 0;
-      padding: 0;
-    }
-    .container {
-      background-color: rgba(0, 0, 0, 0.7);
-      border-radius: 10px;
-      padding: 20px;
-      margin-top: 40px;
-    }
-    h1, h2 {
-      text-align: center;
-      color: #f8f9fa;
-    }
-    .btn-custom {
-      margin-top: 10px;
-    }
-  </style>
+  <title>Chronicling America Viewer</title>
 </head>
 <body>
-
-  <div class="container" id="homePage">
-    <h1>Daily News</h1>
-    <p class="text-center">Welcome to your one-stop destination for historical newspapers!</p>
-    <div class="d-grid gap-2 col-6 mx-auto">
-      <button class="btn btn-primary btn-custom" onclick="showDetails()">View News Details</button>
-      <button class="btn btn-success btn-custom" onclick="showTitles()">Search Newspaper Titles</button>
-    </div>
-  </div>
-
-  <!-- News Details Section -->
-  <div class="container" id="detailsPage" style="display: none;">
-    <h2>News Details</h2>
-    <div id="newsContent">Loading news details...</div>
-    <div class="d-grid gap-2 col-6 mx-auto mt-3">
-      <button class="btn btn-secondary" onclick="showHome()">Go Back</button>
-    </div>
-  </div>
-
-  <!-- Title Search Section -->
-  <div class="container" id="titlesPage" style="display: none;">
-    <h2>Newspaper Titles</h2>
-    <div id="titlesContent">Loading newspaper titles...</div>
-    <div class="d-grid gap-2 col-6 mx-auto mt-3">
-      <button class="btn btn-secondary" onclick="showHome()">Go Back</button>
-    </div>
-  </div>
+  <h1>Chronicling America Viewer</h1>
+  <button onclick="fetchNewsDetails()">View News Details</button>
+  <button onclick="fetchNewspaperTitles()">Search Newspaper Titles</button>
+  <div id="output"></div>
 
   <script>
-    function showHome() {
-      document.getElementById("homePage").style.display = "block";
-      document.getElementById("detailsPage").style.display = "none";
-      document.getElementById("titlesPage").style.display = "none";
-    }
-
-    function showDetails() {
-      document.getElementById("homePage").style.display = "none";
-      document.getElementById("detailsPage").style.display = "block";
-      fetch('https://chroniclingamerica.loc.gov/lccn/sn85038615/')
+    function fetchNewsDetails() {
+      const url = 'https://chroniclingamerica.loc.gov/lccn/sn85038615/1905-01-15/ed-1/seq-25.rdf';
+      fetch(url)
         .then(response => response.text())
-        .then(data => {
-          document.getElementById("newsContent").innerHTML =
-            `<iframe src="https://chroniclingamerica.loc.gov/lccn/sn85038615/" width="100%" height="600px" style="border: none;"></iframe>`;
+        .then(str => {
+          const parser = new DOMParser();
+          const xmlDoc = parser.parseFromString(str, "application/xml");
+          const title = xmlDoc.getElementsByTagName("dcterms:title")[0]?.textContent || "Title not available";
+          const issuedDate = xmlDoc.getElementsByTagName("dcterms:issued")[0]?.textContent || "Date not available";
+          const format = xmlDoc.getElementsByTagName("dc:format")[0]?.textContent || "Format not available";
+          document.getElementById("output").innerHTML = `
+            <h2>News Details</h2>
+            <p><strong>Title:</strong> ${title}</p>
+            <p><strong>Issued Date:</strong> ${issuedDate}</p>
+            <p><strong>Format:</strong> ${format}</p>
+          `;
         })
-        .catch(err => {
-          document.getElementById("newsContent").innerText = "Failed to load news details.";
+        .catch(error => {
+          console.error('Error fetching news details:', error);
+          document.getElementById("output").textContent = "Failed to load news details.";
         });
     }
 
-    function showTitles() {
-      document.getElementById("homePage").style.display = "none";
-      document.getElementById("titlesPage").style.display = "block";
-      fetch('https://chroniclingamerica.loc.gov/newspapers/')
+    function fetchNewspaperTitles() {
+      const url = 'https://chroniclingamerica.loc.gov/newspapers.rdf';
+      fetch(url)
         .then(response => response.text())
-        .then(data => {
-          document.getElementById("titlesContent").innerHTML =
-            `<iframe src="https://chroniclingamerica.loc.gov/newspapers/" width="100%" height="600px" style="border: none;"></iframe>`;
+        .then(str => {
+          const parser = new DOMParser();
+          const xmlDoc = parser.parseFromString(str, "application/xml");
+          const titles = xmlDoc.getElementsByTagName("rdf:Description");
+          let output = "<h2>Newspaper Titles</h2><ul>";
+          for (let i = 0; i < titles.length; i++) {
+            const title = titles[i].getElementsByTagName("dc:title")[0]?.textContent;
+            if (title) {
+              output += `<li>${title}</li>`;
+            }
+          }
+          output += "</ul>";
+          document.getElementById("output").innerHTML = output;
         })
-        .catch(err => {
-          document.getElementById("titlesContent").innerText = "Failed to load newspaper titles.";
+        .catch(error => {
+          console.error('Error fetching newspaper titles:', error);
+          document.getElementById("output").textContent = "Failed to load newspaper titles.";
         });
     }
   </script>
-
 </body>
 </html>
