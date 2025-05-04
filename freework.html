@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Historic Newspaper Explorer</title>
   <style>
     body {
@@ -68,11 +68,11 @@
     async function loadNewspapers() {
       try {
         const proxy = 'https://api.allorigins.win/raw?url=';
-        const url = 'https://chroniclingamerica.loc.gov/newspapers.json';
+        const url = 'https://chroniclingamerica.loc.gov/titles.json';
         const res = await fetch(proxy + encodeURIComponent(url));
         const data = await res.json();
 
-        const newspapers = data.children || [];
+        const newspapers = data.results || [];
         const container = document.getElementById('newspapers');
         container.innerHTML = '';
 
@@ -82,9 +82,9 @@
         }
 
         newspapers.slice(0, 12).forEach(paper => {
-          const title = paper.name || 'Untitled';
+          const title = paper.title || 'Untitled';
           const state = paper.state || 'Not available';
-          const lccn = paper.url?.match(/lccn\/([^\/]+)/)?.[1];
+          const lccn = paper.lccn;
           const detailsUrl = lccn
             ? `https://chroniclingamerica.loc.gov/lccn/${lccn}/`
             : '#';
