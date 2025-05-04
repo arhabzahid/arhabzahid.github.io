@@ -76,16 +76,22 @@
         const proxy = 'https://api.allorigins.win/raw?url=';
         const res = await fetch(proxy + encodeURIComponent('https://chroniclingamerica.loc.gov/newspapers.json'));
         const data = await res.json();
-
+  
         const container = document.getElementById('newspapers');
+        container.innerHTML = '';
         data.newspapers.slice(0, 12).forEach(paper => {
+          const city = paper.place_of_publication || 'Not available';
+          const state = paper.state || 'Not available';
+          const lccn = paper.lccn;
+          const detailsUrl = `https://chroniclingamerica.loc.gov/lccn/${lccn}/`;
+  
           const card = document.createElement('div');
           card.className = 'paper-card';
           card.innerHTML = `
             <h2>${paper.title}</h2>
-            <p><strong>City:</strong> ${paper.place_of_publication || 'Not available'}</p>
-            <p><strong>State:</strong> ${paper.state || 'Not available'}</p>
-            <a href="https://chroniclingamerica.loc.gov${paper.url}" target="_blank">View Details</a>
+            <p><strong>City:</strong> ${city}</p>
+            <p><strong>State:</strong> ${state}</p>
+            <a href="${detailsUrl}" target="_blank">View Details</a>
           `;
           container.appendChild(card);
         });
@@ -94,8 +100,9 @@
         document.getElementById('newspapers').innerHTML = '<p>Could not load newspapers. Please try again later.</p>';
       }
     }
-
+  
     loadNewspapers();
   </script>
+  
 </body>
 </html>
