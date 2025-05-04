@@ -31,16 +31,18 @@
   </ul>
 
   <script>
- const apiUrl = 'https://chroniclingamerica.loc.gov/newspapers/'; // Example URL, replace with your actual URL
+const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+const apiUrl = 'https://chroniclingamerica.loc.gov/newspapers/'; // Replace with the correct API URL
 
-fetch(apiUrl)
-  .then((response) => response.json())  // Convert the response to JSON
-  .then((data) => {
-    console.log("Data received:", data);  // Log the data
+fetch(proxyUrl + apiUrl)
+  .then(response => response.json())
+  .then(data => {
+    console.log("Data received:", data);  // Log the response
   })
-  .catch((error) => {
-    console.error("Error fetching data: ", error);  // Log the error
+  .catch(error => {
+    console.error("Error fetching data:", error);  // Log the error
   });
+
 
 
   </script>
