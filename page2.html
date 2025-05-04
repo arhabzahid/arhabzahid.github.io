@@ -8,7 +8,7 @@
     body {
       font-family: 'Segoe UI', sans-serif;
       margin: 0;
-      background: url('https://cdn.loc.gov/chroniclingamerica/images/chronicling-america.jpg') no-repeat center center fixed;
+      background: url('https://via.placeholder.com/1920x1080.png?text=Historic+Newspapers') no-repeat center center fixed;
       background-size: cover;
       color: #fff;
     }
@@ -58,11 +58,11 @@
   <script>
     async function loadNewspapers() {
       try {
-        const res = await fetch('https://api.allorigins.win/raw?url=https://chroniclingamerica.loc.gov/newspapers.json');
-        const data = await res.json();
+        const res = await fetch('https://api.allorigins.win/get?url=' + encodeURIComponent('https://chroniclingamerica.loc.gov/newspapers.json'));
+        const wrappedData = await res.json();
+        const data = JSON.parse(wrappedData.contents);
 
         const container = document.getElementById('newspapers');
-        container.innerHTML = '';
         data.newspapers.slice(0, 12).forEach(paper => {
           const card = document.createElement('div');
           card.className = 'paper-card';
@@ -70,8 +70,7 @@
             <h2>${paper.title}</h2>
             <p><strong>City:</strong> ${paper.place_of_publication || 'Not available'}</p>
             <p><strong>State:</strong> ${paper.state || 'Not available'}</p>
-          <a href="https://chroniclingamerica.loc.gov${paper.url}/.json" target="_blank">View Details</a>
-
+            <a href="https://chroniclingamerica.loc.gov${paper.url}.json" target="_blank">View Details</a>
           `;
           container.appendChild(card);
         });
