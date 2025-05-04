@@ -2,61 +2,69 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Chronicling America Viewer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>News App</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <style>
+    body {
+      background-color: #1a1a1a;
+      color: white;
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    .container {
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      padding: 20px;
+      margin-top: 20px;
+    }
+    h1, h2 {
+      text-align: center;
+    }
+    .title-item {
+      margin-bottom: 10px;
+      padding: 10px;
+      background-color: rgba(255,255,255,0.05);
+      border-radius: 5px;
+    }
+  </style>
 </head>
 <body>
-  <h1>Chronicling America Viewer</h1>
-  <button onclick="fetchNewsDetails()">View News Details</button>
-  <button onclick="fetchNewspaperTitles()">Search Newspaper Titles</button>
-  <div id="output"></div>
 
-  <script>
-    function fetchNewsDetails() {
-      const url = 'https://chroniclingamerica.loc.gov/lccn/sn85038615/1905-01-15/ed-1/seq-25.rdf';
-      fetch(url)
-        .then(response => response.text())
-        .then(str => {
-          const parser = new DOMParser();
-          const xmlDoc = parser.parseFromString(str, "application/xml");
-          const title = xmlDoc.getElementsByTagName("dcterms:title")[0]?.textContent || "Title not available";
-          const issuedDate = xmlDoc.getElementsByTagName("dcterms:issued")[0]?.textContent || "Date not available";
-          const format = xmlDoc.getElementsByTagName("dc:format")[0]?.textContent || "Format not available";
-          document.getElementById("output").innerHTML = `
-            <h2>News Details</h2>
-            <p><strong>Title:</strong> ${title}</p>
-            <p><strong>Issued Date:</strong> ${issuedDate}</p>
-            <p><strong>Format:</strong> ${format}</p>
-          `;
-        })
-        .catch(error => {
-          console.error('Error fetching news details:', error);
-          document.getElementById("output").textContent = "Failed to load news details.";
-        });
-    }
+<div class="container" id="homePage">
+  <h1>Newspaper Titles</h1>
+  <div class="d-grid gap-2 col-6 mx-auto mb-3">
+    <button class="btn btn-primary" onclick="loadTitles()">Load Titles</button>
+  </div>
+  <div id="titlesList"></div>
+</div>
 
-    function fetchNewspaperTitles() {
-      const url = 'https://chroniclingamerica.loc.gov/newspapers.rdf';
-      fetch(url)
-        .then(response => response.text())
-        .then(str => {
-          const parser = new DOMParser();
-          const xmlDoc = parser.parseFromString(str, "application/xml");
-          const titles = xmlDoc.getElementsByTagName("rdf:Description");
-          let output = "<h2>Newspaper Titles</h2><ul>";
-          for (let i = 0; i < titles.length; i++) {
-            const title = titles[i].getElementsByTagName("dc:title")[0]?.textContent;
-            if (title) {
-              output += `<li>${title}</li>`;
-            }
-          }
-          output += "</ul>";
-          document.getElementById("output").innerHTML = output;
-        })
-        .catch(error => {
-          console.error('Error fetching newspaper titles:', error);
-          document.getElementById("output").textContent = "Failed to load newspaper titles.";
-        });
+<script>
+  async function loadTitles() {
+    const listDiv = document.getElementById('titlesList');
+    listDiv.innerHTML = 'Loading...';
+    try {
+      const response = await fetch("https://corsproxy.io/?https://chroniclingamerica.loc.gov/newspapers.json");
+      const data = await response.json();
+
+      const titles = data.newspapers || [];
+      if (titles.length === 0) {
+        listDiv.innerHTML = "No titles found.";
+        return;
+      }
+
+      listDiv.innerHTML = "";
+      titles.slice(0, 10).forEach(title => {
+        const div = document.createElement('div');
+        div.className = "title-item";
+        div.innerHTML = `<strong>${title.title}</strong><br>LCCN: ${title.lccn}<br>State: ${title.state}`;
+        listDiv.appendChild(div);
+      });
+    } catch (err) {
+      listDiv.innerHTML = "Failed to load newspaper titles.";
     }
-  </script>
+  }
+</script>
+
 </body>
 </html>
