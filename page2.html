@@ -58,8 +58,8 @@
   <script>
     async function loadNewspapers() {
       try {
-        // Using CORS Proxy (cors-anywhere)
-        const res = await fetch('https://cors-anywhere.herokuapp.com/https://chroniclingamerica.loc.gov/newspapers.json');
+        // Using AllOrigins CORS Proxy
+        const res = await fetch('https://api.allorigins.win/raw?url=https://chroniclingamerica.loc.gov/newspapers.json');
         const data = await res.json();
 
         const container = document.getElementById('newspapers');
@@ -68,7 +68,7 @@
           card.className = 'paper-card';
           card.innerHTML = `
             <h2>${paper.title}</h2>
-            <p><strong>City:</strong> ${paper.city ? paper.city : 'Not available'}</p>
+            <p><strong>City:</strong> ${paper.city || 'Not available'}</p>
             <p><strong>State:</strong> ${paper.state}</p>
             <a href="https://chroniclingamerica.loc.gov${paper.url}json" target="_blank">View Details</a>
           `;
