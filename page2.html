@@ -90,10 +90,10 @@
     <button class="btn-custom" onclick="hideNewspapers()">Back to Home</button>
   </div>
 
-  <!-- Second Feature Content (Issues) -->
+  <!-- Second Feature Content (Awardees) -->
   <div class="overlay" id="other-features" style="display: none;">
-    <h1>Explore Newspaper Issues</h1>
-    <div id="issues-list" class="newspapers"></div>
+    <h1>Explore Awardees</h1>
+    <div id="awardees-list" class="newspapers"></div>
     <button class="btn-custom" onclick="hideOtherFeatures()">Back to Home</button>
   </div>
 
@@ -127,58 +127,32 @@
       }
     }
 
-    async function loadIssues() {
+    // Load Awardees Function
+    async function loadAwardees() {
       try {
-        const lccn = 'sn85038615';  // Replace with a valid LCCN
-        const date = '1900-01-01';  // Replace with a valid date in YYYY-MM-DD format
-        
-        // Construct the URL for the API call
-        const url = `https://chroniclingamerica.loc.gov/lccn/${lccn}/date/${date}/ed-1.json`;
-        console.log("Fetching issues from URL: ", url);  // Debugging: Log the URL to verify
-
         const proxy = 'https://api.allorigins.win/raw?url=';
-        const res = await fetch(proxy + encodeURIComponent(url));
-        
-        // Check if response is successful
-        if (!res.ok) {
-          console.error('Error fetching data:', res.status, res.statusText);
-          throw new Error('Failed to fetch data');
-        }
-
+        const res = await fetch(proxy + encodeURIComponent('https://chroniclingamerica.loc.gov/awardees.json'));
         const data = await res.json();
-        console.log("Fetched issues data: ", data);  // Debugging: Log the returned data
-
-        const container = document.getElementById('issues-list');
+  
+        const container = document.getElementById('awardees-list');
         container.innerHTML = '';
+        data.forEach(awardee => {
+          const name = awardee.name || 'No name available';
+          const awardeeUrl = awardee.url || '#';
 
-        if (data.items && data.items.length > 0) {
-          data.items.forEach(issue => {
-            const issueDate = issue.date || 'Not available';
-            const issueTitle = issue.title || 'No title available';
-            const issueLink = `https://chroniclingamerica.loc.gov/lccn/${lccn}/date/${date}/ed-1/seq-${issue.seq}.json`;
-
-            const card = document.createElement('div');
-            card.className = 'paper-card';
-            card.innerHTML = `
-              <h2>${issueTitle}</h2>
-              <p><strong>Date:</strong> ${issueDate}</p>
-              <a href="${issueLink}" target="_blank">View Issue</a>
-            `;
-            container.appendChild(card);
-          });
-        } else {
-          container.innerHTML = '<p>No issues available for this date.</p>';
-        }
+          const card = document.createElement('div');
+          card.className = 'paper-card';
+          card.innerHTML = `
+            <h2>${name}</h2>
+            <a href="${awardeeUrl}" target="_blank">View Awardee Details</a>
+          `;
+          container.appendChild(card);
+        });
       } catch (error) {
-        console.error('Failed to load newspaper issues:', error);
-        document.getElementById('issues-list').innerHTML = '<p>Could not load issues. Please try again later.</p>';
+        console.error('Failed to load awardees:', error);
+        document.getElementById('awardees-list').innerHTML = '<p>Could not load awardees. Please try again later.</p>';
       }
     }
-
-    loadIssues();
-
-
-
 
     // Show and Hide Sections
     function showNewspapers() {
@@ -190,7 +164,7 @@
     function showOtherFeatures() {
       document.querySelector('.container').style.display = 'none';
       document.getElementById('other-features').style.display = 'block';
-      loadIssues();  // Call the function to load issues here
+      loadAwardees();  // Call the function to load awardees here
     }
 
     function hideNewspapers() {
