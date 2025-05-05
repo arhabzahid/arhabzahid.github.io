@@ -140,7 +140,13 @@
       const name = awardee.name || 'No name available';
       let detailsUrl = awardee.url;  // If there's no URL, it will stay undefined.
 
-      // If no URL is found, fallback to search result on Chronicling America.
+      // Check if the URL points to a JSON endpoint
+      if (detailsUrl && detailsUrl.includes('.json')) {
+        // Modify the URL to point to a human-readable page
+        detailsUrl = detailsUrl.replace('.json', '/');  // Removing '.json' to point to the actual page
+      }
+
+      // If no URL is found, fallback to a search result on Chronicling America.
       if (!detailsUrl) {
         detailsUrl = `https://chroniclingamerica.loc.gov/search/pages/results/?proxtext=${encodeURIComponent(name)}`;
       }
@@ -158,6 +164,7 @@
     document.getElementById('awardees-list').innerHTML = '<p>Could not load awardee information. Please try again later.</p>';
   }
 }
+
 
     function showNewspapers() {
       document.querySelector('.container').style.display = 'none';
