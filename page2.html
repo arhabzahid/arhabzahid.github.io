@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Historic Newspaper Explorer</title>
   <style>
     body {
@@ -98,9 +98,8 @@
   </div>
 
   <script>
-    const proxy = 'https://thingproxy.freeboard.io/fetch/';
+    const proxy = 'https://cors-anywhere.herokuapp.com/';
 
-    // Load Newspapers
     async function loadNewspapers() {
       try {
         const res = await fetch(proxy + 'https://chroniclingamerica.loc.gov/newspapers.json');
@@ -128,7 +127,6 @@
       }
     }
 
-    // Load Awardees
     async function loadAwardees() {
       try {
         const res = await fetch(proxy + 'https://chroniclingamerica.loc.gov/awardees.json');
@@ -138,7 +136,7 @@
         container.innerHTML = '';
         data.awardees.forEach(awardee => {
           const name = awardee.name || 'No name available';
-          const detailsUrl = `https://chroniclingamerica.loc.gov/awardees/${name.toLowerCase().replace(/\s+/g, '_')}.html`;
+          const detailsUrl = awardee.url || '#';
 
           const card = document.createElement('div');
           card.className = 'paper-card';
@@ -154,7 +152,6 @@
       }
     }
 
-    // Show/Hide Functions
     function showNewspapers() {
       document.querySelector('.container').style.display = 'none';
       document.getElementById('newspapers').style.display = 'block';
