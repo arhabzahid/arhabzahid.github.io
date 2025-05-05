@@ -100,32 +100,37 @@
   <script>
     const proxy = 'https://cors-anywhere.herokuapp.com/';
 
-    async function loadNewspapers() {
-      try {
-        const res = await fetch(proxy + 'https://chroniclingamerica.loc.gov/newspapers.json');
-        const data = await res.json();
+    async function loadAwardees() {
+  try {
+    const proxy = 'https://cors-anywhere.herokuapp.com/';
+    const res = await fetch(proxy + 'https://chroniclingamerica.loc.gov/awardees.json');
+    const data = await res.json();
 
-        const container = document.getElementById('newspapers-list');
-        container.innerHTML = '';
-        data.newspapers.slice(0, 50).forEach(paper => {
-          const state = paper.state || 'Not available';
-          const lccn = paper.lccn;
-          const detailsUrl = `https://chroniclingamerica.loc.gov/lccn/${lccn}/`;
+    const container = document.getElementById('awardees-list');
+    container.innerHTML = '';  // Clear previous content
 
-          const card = document.createElement('div');
-          card.className = 'paper-card';
-          card.innerHTML = `
-            <h2>${paper.title}</h2>
-            <p><strong>State:</strong> ${state}</p>
-            <a href="${detailsUrl}" target="_blank">View Details</a>
-          `;
-          container.appendChild(card);
-        });
-      } catch (error) {
-        console.error('Failed to load newspapers:', error);
-        document.getElementById('newspapers-list').innerHTML = '<p>Could not load newspapers. Please try again later.</p>';
+    data.awardees.forEach(awardee => {
+      const name = awardee.name || 'No name available';
+      let detailsUrl = awardee.url;  // If there's no URL, it will stay undefined.
+
+      // If no URL is found, fallback to search result on Chronicling America.
+      if (!detailsUrl) {
+        detailsUrl = `https://chroniclingamerica.loc.gov/search/pages/results/?proxtext=${encodeURIComponent(name)}`;
       }
-    }
+
+      const card = document.createElement('div');
+      card.className = 'paper-card';
+      card.innerHTML = `
+        <h2>${name}</h2>
+        <a href="${detailsUrl}" target="_blank">View Details</a>
+      `;
+      container.appendChild(card);
+    });
+  } catch (error) {
+    console.error('Failed to load awardees:', error);
+    document.getElementById('awardees-list').innerHTML = '<p>Could not load awardee information. Please try again later.</p>';
+  }
+}
 
     async function loadAwardees() {
       try {
