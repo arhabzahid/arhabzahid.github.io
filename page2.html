@@ -129,30 +129,30 @@
 
     // Load Awardee Information Function
     async function loadAwardees() {
-      try {
-        const proxy = 'https://api.allorigins.win/raw?url=';
-        const res = await fetch(proxy + encodeURIComponent('https://chroniclingamerica.loc.gov/awardees.json'));
-        const data = await res.json();
+  try {
+    const proxy = 'https://api.allorigins.win/raw?url=';
+    const res = await fetch(proxy + encodeURIComponent('https://chroniclingamerica.loc.gov/awardees.json'));
+    const data = await res.json();
 
-        const container = document.getElementById('awardees-list');
-        container.innerHTML = '';
-        data.awardees.forEach(awardee => {
-          const name = awardee.name || 'No name available';
-          const url = awardee.url || '#';
+    const container = document.getElementById('awardees-list');
+    container.innerHTML = '';
+    data.awardees.forEach(awardee => {
+      const name = awardee.name || 'No name available';
+      const url = awardee.url || '#';
 
-          const card = document.createElement('div');
-          card.className = 'paper-card';
-          card.innerHTML = `
-            <h2>${name}</h2>
-            <a href="${url}" target="_blank">View Details</a>
-          `;
-          container.appendChild(card);
-        });
-      } catch (error) {
-        console.error('Failed to load awardees:', error);
-        document.getElementById('awardees-list').innerHTML = '<p>Could not load awardee information. Please try again later.</p>';
-      }
-    }
+      const card = document.createElement('div');
+      card.className = 'paper-card';
+      card.innerHTML = `
+        <h2>${name}</h2>
+        <a href="${url}" target="_blank">View Details</a>  <!-- Use the proper URL here -->
+      `;
+      container.appendChild(card);
+    });
+  } catch (error) {
+    console.error('Failed to load awardees:', error);
+    document.getElementById('awardees-list').innerHTML = '<p>Could not load awardee information. Please try again later.</p>';
+  }
+}
 
     // Show and Hide Sections
     function showNewspapers() {
