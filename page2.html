@@ -138,13 +138,16 @@
     container.innerHTML = '';
     data.awardees.forEach(awardee => {
       const name = awardee.name || 'No name available';
-      const url = awardee.url || '#';
+      const awardeeUrl = awardee.url || '#';  // Default fallback
+
+      // Constructing the URL for the awardee's detailed page based on some pattern
+      const detailsUrl = `https://chroniclingamerica.loc.gov/awardees/${awardee.name.toLowerCase().replace(/\s+/g, '_')}.html`; 
 
       const card = document.createElement('div');
       card.className = 'paper-card';
       card.innerHTML = `
         <h2>${name}</h2>
-        <a href="${url}" target="_blank">View Details</a>  <!-- Use the proper URL here -->
+        <a href="${detailsUrl}" target="_blank">View Details</a> <!-- Link to the details page -->
       `;
       container.appendChild(card);
     });
