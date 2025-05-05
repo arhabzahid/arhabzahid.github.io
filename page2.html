@@ -98,12 +98,12 @@
   </div>
 
   <script>
-    const proxy = 'https://corsproxy.io/?';
+    const proxy = 'https://thingproxy.freeboard.io/fetch/';
 
     // Load Newspapers
     async function loadNewspapers() {
       try {
-        const res = await fetch(proxy + encodeURIComponent('https://chroniclingamerica.loc.gov/newspapers.json'));
+        const res = await fetch(proxy + 'https://chroniclingamerica.loc.gov/newspapers.json');
         const data = await res.json();
 
         const container = document.getElementById('newspapers-list');
@@ -131,7 +131,7 @@
     // Load Awardees
     async function loadAwardees() {
       try {
-        const res = await fetch(proxy + encodeURIComponent('https://chroniclingamerica.loc.gov/awardees.json'));
+        const res = await fetch(proxy + 'https://chroniclingamerica.loc.gov/awardees.json');
         const data = await res.json();
 
         const container = document.getElementById('awardees-list');
