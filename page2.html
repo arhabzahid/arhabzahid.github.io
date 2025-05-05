@@ -127,37 +127,33 @@
       }
     }
 
-    async function loadAwardees() {
+    async function loadBatches() {
   try {
     const proxy = 'https://cors-anywhere.herokuapp.com/';
-    const res = await fetch(proxy + 'https://chroniclingamerica.loc.gov/awardees.json');
+    const res = await fetch(proxy + 'https://chroniclingamerica.loc.gov/batches/az_bentonite_ver02.json'); // Replace with your actual batch URL
     const data = await res.json();
 
-    const container = document.getElementById('awardees-list');
+    const container = document.getElementById('batch-list');
     container.innerHTML = '';  // Clear previous content
 
-    data.awardees.forEach(awardee => {
-      const name = awardee.name || 'No name available';
-      let detailsUrl = awardee.url;  // If there's no URL, it will stay undefined.
-
-      // If no URL is found, fallback to search result on Chronicling America.
-      if (!detailsUrl) {
-        detailsUrl = `https://chroniclingamerica.loc.gov/search/pages/results/?proxtext=${encodeURIComponent(name)}`;
-      }
+    data.forEach(batch => {
+      const batchName = batch.name || 'No name available';
+      const batchUrl = batch.url;  // Direct URL to the batch JSON file
 
       const card = document.createElement('div');
-      card.className = 'paper-card';
+      card.className = 'batch-card';
       card.innerHTML = `
-        <h2>${name}</h2>
-        <a href="${detailsUrl}" target="_blank">View Details</a>
+        <h2>${batchName}</h2>
+        <a href="${batchUrl}" target="_blank">View Details</a>
       `;
       container.appendChild(card);
     });
   } catch (error) {
-    console.error('Failed to load awardees:', error);
-    document.getElementById('awardees-list').innerHTML = '<p>Could not load awardee information. Please try again later.</p>';
+    console.error('Failed to load batches:', error);
+    document.getElementById('batch-list').innerHTML = '<p>Could not load batch information. Please try again later.</p>';
   }
 }
+
 
     function showNewspapers() {
       document.querySelector('.container').style.display = 'none';
