@@ -128,31 +128,31 @@
     }
 
     // Load Awardees Function
-    async function loadAwardees() {
-      try {
-        const proxy = 'https://api.allorigins.win/raw?url=';
-        const res = await fetch(proxy + encodeURIComponent('https://chroniclingamerica.loc.gov/awardees.json'));
-        const data = await res.json();
-  
-        const container = document.getElementById('awardees-list');
-        container.innerHTML = '';
-        data.forEach(awardee => {
-          const name = awardee.name || 'No name available';
-          const awardeeUrl = awardee.url || '#';
+    function loadIssues() {
+  fetch("https://chroniclingamerica.loc.gov/awardees.json")
+    .then((response) => response.json())
+    .then((data) => {
+      const issuesContainer = document.getElementById("issues");
+      issuesContainer.innerHTML = "<h2>Awardees</h2>";
+      const list = document.createElement("ul");
 
-          const card = document.createElement('div');
-          card.className = 'paper-card';
-          card.innerHTML = `
-            <h2>${name}</h2>
-            <a href="${awardeeUrl}" target="_blank">View Awardee Details</a>
-          `;
-          container.appendChild(card);
-        });
-      } catch (error) {
-        console.error('Failed to load awardees:', error);
-        document.getElementById('awardees-list').innerHTML = '<p>Could not load awardees. Please try again later.</p>';
-      }
-    }
+      data.awardees.forEach((awardee) => {
+        const listItem = document.createElement("li");
+        const link = document.createElement("a");
+        link.href = awardee.url;
+        link.target = "_blank";
+        link.textContent = awardee.name;
+        listItem.appendChild(link);
+        list.appendChild(listItem);
+      });
+
+      issuesContainer.appendChild(list);
+    })
+    .catch((error) => {
+      console.error("Error fetching awardees:", error);
+      document.getElementById("issues").textContent = "Failed to load awardees.";
+    });
+}
 
     // Show and Hide Sections
     function showNewspapers() {
