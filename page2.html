@@ -83,25 +83,26 @@
     </div>
   </div>
 
-  <!-- Newspaper Listing Page (newspapers.html) -->
-  <div class="overlay" id="newspapers" style="display: none;">
+  <!-- Newspaper Listing Page -->
+  <div class="overlay" id="newspapers">
     <h1>Explore Historic Newspapers</h1>
     <div id="newspapers-list" class="newspapers"></div>
     <button class="btn-custom" onclick="hideNewspapers()">Back to Home</button>
   </div>
 
   <!-- Awardee Information Page -->
-  <div class="overlay" id="awardees" style="display: none;">
+  <div class="overlay" id="awardees">
     <h1>View Awardee Information</h1>
     <div id="awardees-list" class="newspapers"></div>
     <button class="btn-custom" onclick="hideAwardees()">Back to Home</button>
   </div>
 
   <script>
-    // Load Newspapers Function
+    const proxy = 'https://corsproxy.io/?';
+
+    // Load Newspapers
     async function loadNewspapers() {
       try {
-        const proxy = 'https://api.allorigins.win/raw?url=';
         const res = await fetch(proxy + encodeURIComponent('https://chroniclingamerica.loc.gov/newspapers.json'));
         const data = await res.json();
 
@@ -127,34 +128,33 @@
       }
     }
 
-    // Load Awardee Information Function
+    // Load Awardees
     async function loadAwardees() {
-  try {
-    const proxy = 'https://api.allorigins.win/raw?url=';
-    const res = await fetch(proxy + encodeURIComponent('https://chroniclingamerica.loc.gov/awardees.json'));
-    const data = await res.json();
+      try {
+        const res = await fetch(proxy + encodeURIComponent('https://chroniclingamerica.loc.gov/awardees.json'));
+        const data = await res.json();
 
-    const container = document.getElementById('awardees-list');
-    container.innerHTML = '';
-    data.awardees.forEach(awardee => {
-      const name = awardee.name || 'No name available';
-      const detailsUrl = awardee.url || '#';  // ✅ Use the real URL from API
+        const container = document.getElementById('awardees-list');
+        container.innerHTML = '';
+        data.awardees.forEach(awardee => {
+          const name = awardee.name || 'No name available';
+          const detailsUrl = `https://chroniclingamerica.loc.gov/awardees/${name.toLowerCase().replace(/\s+/g, '_')}.html`;
 
-      const card = document.createElement('div');
-      card.className = 'paper-card';
-      card.innerHTML = `
-        <h2>${name}</h2>
-        <a href="${detailsUrl}" target="_blank">View Details</a>
-      `;
-      container.appendChild(card);
-    });
-  } catch (error) {
-    console.error('Failed to load awardees:', error);
-    document.getElementById('awardees-list').innerHTML = '<p>Could not load awardee information. Please try again later.</p>';
-  }
-}
+          const card = document.createElement('div');
+          card.className = 'paper-card';
+          card.innerHTML = `
+            <h2>${name}</h2>
+            <a href="${detailsUrl}" target="_blank">View Details</a>
+          `;
+          container.appendChild(card);
+        });
+      } catch (error) {
+        console.error('Failed to load awardees:', error);
+        document.getElementById('awardees-list').innerHTML = '<p>Could not load awardee information. Please try again later.</p>';
+      }
+    }
 
-    // Show and Hide Sections
+    // Show/Hide Functions
     function showNewspapers() {
       document.querySelector('.container').style.display = 'none';
       document.getElementById('newspapers').style.display = 'block';
@@ -164,7 +164,7 @@
     function showAwardees() {
       document.querySelector('.container').style.display = 'none';
       document.getElementById('awardees').style.display = 'block';
-      loadAwardees();  // Call the function to load awardee information here
+      loadAwardees();
     }
 
     function hideNewspapers() {
