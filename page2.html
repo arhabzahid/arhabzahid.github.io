@@ -72,7 +72,7 @@
   </style>
 </head>
 <body>
-
+  <div id="issues"></div>
   <!-- Homepage Content -->
   <div class="container">
     <h1>Welcome to Historic Newspaper Explorer</h1>
@@ -128,7 +128,7 @@
     }
 
     // Load Awardees Function
-    
+    document.addEventListener("DOMContentLoaded", function () {
   function loadAwardees() {
     fetch("https://chroniclingamerica.loc.gov/awardees.json")
       .then(response => response.json())
@@ -151,7 +151,7 @@
         console.error("Error loading awardees:", error);
         document.getElementById("issues").innerHTML = "<p>Failed to load awardees.</p>";
       });
-  }
+  } });
 
 
     // Show and Hide Sections
