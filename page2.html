@@ -79,7 +79,7 @@
     <h2>Explore the past through historic newspapers</h2>
     <div>
       <button class="btn-custom" onclick="showNewspapers()">View Historic Newspapers</button>
-      <button class="btn-custom" onclick="showAwardees()">View Awardee Information</button>
+      <button onclick="showAwardees()">Show Awardees</button>
     </div>
   </div>
 
@@ -127,34 +127,37 @@
       }
     }
 
-    async function loadBatches() {
+    async function loadAwardees() {
   try {
     const proxy = 'https://cors-anywhere.herokuapp.com/';
-    const res = await fetch(proxy + 'https://chroniclingamerica.loc.gov/batches/az_bentonite_ver02.json'); // Replace with your actual batch URL
+    const res = await fetch(proxy + 'https://chroniclingamerica.loc.gov/awardees.json');  // Replace with the correct URL
     const data = await res.json();
 
-    const container = document.getElementById('batch-list');
+    const container = document.getElementById('awardee-list');
     container.innerHTML = '';  // Clear previous content
 
-    data.forEach(batch => {
-      const batchName = batch.name || 'No name available';
-      const batchUrl = batch.url;  // Direct URL to the batch JSON file
+    data.forEach(awardee => {
+      const awardeeName = awardee.name || 'No name available';
+      const awardeeDetails = awardee.details || 'No details available';
 
       const card = document.createElement('div');
-      card.className = 'batch-card';
+      card.className = 'awardee-card';
       card.innerHTML = `
-        <h2>${batchName}</h2>
-        <a href="${batchUrl}" target="_blank">View Details</a>
+        <h2>${awardeeName}</h2>
+        <p>${awardeeDetails}</p>
       `;
       container.appendChild(card);
     });
   } catch (error) {
-    console.error('Failed to load batches:', error);
-    document.getElementById('batch-list').innerHTML = '<p>Could not load batch information. Please try again later.</p>';
+    console.error('Failed to load awardees:', error);
+    document.getElementById('awardee-list').innerHTML = '<p>Could not load awardee information. Please try again later.</p>';
   }
 }
 
 
+function showAwardees() {
+  loadAwardees();  // Calls the loadAwardees function when the button is clicked
+}
     function showNewspapers() {
       document.querySelector('.container').style.display = 'none';
       document.getElementById('newspapers').style.display = 'block';
