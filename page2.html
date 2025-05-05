@@ -72,113 +72,64 @@
   </style>
 </head>
 <body>
-  
+
   <!-- Homepage Content -->
   <div class="container">
     <h1>Welcome to Historic Newspaper Explorer</h1>
     <h2>Explore the past through historic newspapers</h2>
     <div>
-      <button class="btn-custom" onclick="showNewspapers()">View Historic Newspapers</button>
-      <button onclick="showOtherFeatures()">View Awardee Information</button>
-  <div id="issues"></div>
+      <button class="btn-custom" onclick="showAwardees()">View Awardee Information</button>
     </div>
   </div>
 
-  <!-- Newspaper Listing Page (newspapers.html) -->
-  <div class="overlay" id="newspapers" style="display: none;">
-    <h1>Explore Historic Newspapers</h1>
-    <div id="newspapers-list" class="newspapers"></div>
-    <button class="btn-custom" onclick="hideNewspapers()">Back to Home</button>
-  </div>
-
-  <!-- Second Feature Content (Awardees) -->
-  <div class="overlay" id="other-features" style="display: none;">
-    <h1>Explore Awardees</h1>
-    <div id="awardees-list" class="newspapers"></div>
-    <button class="btn-custom" onclick="hideOtherFeatures()">Back to Home</button>
+  <!-- Awardee Information Page -->
+  <div class="overlay" id="awardees" style="display: none;">
+    <h1>Explore Awardee Information</h1>
+    <div id="awardee-list" class="newspapers"></div>
+    <button class="btn-custom" onclick="hideAwardees()">Back to Home</button>
   </div>
 
   <script>
-    // Load Newspapers Function
-    async function loadNewspapers() {
+    async function loadAwardees() {
       try {
         const proxy = 'https://api.allorigins.win/raw?url=';
-        const res = await fetch(proxy + encodeURIComponent('https://chroniclingamerica.loc.gov/newspapers.json'));
+        const res = await fetch(proxy + encodeURIComponent('https://chroniclingamerica.loc.gov/awardees.json'));
         const data = await res.json();
-  
-        const container = document.getElementById('newspapers-list');
-        container.innerHTML = '';
-        data.newspapers.slice(0, 50).forEach(paper => {
-          const state = paper.state || 'Not available';
-          const lccn = paper.lccn;
-          const detailsUrl = `https://chroniclingamerica.loc.gov/lccn/${lccn}/`;
-  
+        
+        const container = document.getElementById('awardee-list');
+        container.innerHTML = '';  // Clear previous content
+
+        data.awardees.forEach(awardee => {
           const card = document.createElement('div');
           card.className = 'paper-card';
           card.innerHTML = `
-            <h2>${paper.title}</h2>
-            <p><strong>State:</strong> ${state}</p>
-            <a href="${detailsUrl}" target="_blank">View Details</a>
+            <h2>${awardee.name}</h2>
+            <a href="${awardee.url}" target="_blank">View Details</a>
           `;
           container.appendChild(card);
         });
       } catch (error) {
-        console.error('Failed to load newspapers:', error);
-        document.getElementById('newspapers-list').innerHTML = '<p>Could not load newspapers. Please try again later.</p>';
+        console.error('Error loading awardees:', error);
+        document.getElementById('awardee-list').innerHTML = '<p>Could not load awardee information. Please try again later.</p>';
       }
     }
 
-    // Load Awardees Function
-    async function loadAwardees() {
-      try {
-        const response = await fetch("https://chroniclingamerica.loc.gov/awardees.json");
-        const data = await response.json();
-
-        const container = document.getElementById("issues");
-        container.innerHTML = "";
-
-        data.awardees.forEach((awardee) => {
-          const div = document.createElement("div");
-          div.innerHTML = `<a href="${awardee.url}" target="_blank">${awardee.name}</a>`;
-          container.appendChild(div);
-        });
-      } catch (error) {
-        console.error("Error loading awardees:", error);
-      }
-    }
-
-    function showOtherFeatures() {
+    // Show and Hide Sections
+    function showAwardees() {
+      document.querySelector('.container').style.display = 'none';
+      document.getElementById('awardees').style.display = 'block';
       loadAwardees();
     }
 
-
-    // Show and Hide Sections
-    function showNewspapers() {
-      document.querySelector('.container').style.display = 'none';
-      document.getElementById('newspapers').style.display = 'block';
-      loadNewspapers();
-    }
-
-    function showOtherFeatures() {
-      document.querySelector('.container').style.display = 'none';
-      document.getElementById('other-features').style.display = 'block';
-      loadAwardees();  // Call the function to load awardees here
-    }
-
-    function hideNewspapers() {
-      document.getElementById('newspapers').style.display = 'none';
-      document.querySelector('.container').style.display = 'block';
-    }
-
-    function hideOtherFeatures() {
-      document.getElementById('other-features').style.display = 'none';
+    function hideAwardees() {
+      document.getElementById('awardees').style.display = 'none';
       document.querySelector('.container').style.display = 'block';
     }
   </script>
 
   <hr class="horizontal rule ">
   <span>May 4, 2025 - Created by Arhab Zahid</span>
-  <hr class="horizontal rule">
+  <hr class="horizontal rule ">
 
 </body>
 </html>
