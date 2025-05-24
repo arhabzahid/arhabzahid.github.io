@@ -4,79 +4,108 @@
   <meta charset="UTF-8">
   <title>Planes</title>
   <style>
-    body { font-family: Arial; padding: 20px; }
-    button { padding: 10px 20px; margin: 10px; font-size: 16px; cursor: pointer; }
-    .section { display: none; }
-    .visible { display: block; }
-    a { color: blue; }
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      margin: 0;
+      transition: background-image 0.5s ease-in-out;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+    button {
+      padding: 10px 20px;
+      margin: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 25px;
+      border: none;
+      background-color: #007BFF;
+      color: white;
+      transition: background-color 0.3s;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .section {
+      display: none;
+      background-color: rgba(255, 255, 255, 0.9);
+      padding: 20px;
+      border-radius: 10px;
+    }
+    .visible {
+      display: block;
+    }
+    a {
+      color: blue;
+    }
+    .total {
+      font-size: 18px;
+      font-weight: bold;
+    }
   </style>
 </head>
 <body>
 
-  
   <div id="home" class="section visible">
     <h1>Welcome to My Hobby Plane Collection</h1>
-    <p> <strong>AMA Insurance:</strong> $85/year 
+    <p><strong>AMA Insurance:</strong> $85/year 
       (<a href="https://www.modelaircraft.org/membership/enroll" target="_blank">Join AMA</a>)
     </p>
-    <p> <strong>FAA Registration:</strong> $5/year 
+    <p><strong>FAA Registration:</strong> $5/year 
       (<a href="https://faadronezone-access.faa.gov/" target="_blank">Register with FAA</a>)
     </p>
-
-    <button onclick="showSection('plane1')">Plane 1 - YAK-130 V2 </button>
-    <button onclick="showSection('plane2')">Plane 2 - F-18F </button>
+    <button onclick="showSection('plane1', 'https://israelnoticias.com/wp-content/uploads/2023/09/Yak-130-transformed-il.webp')">Plane 1 - YAK-130 V2</button>
+    <button onclick="showSection('plane2', 'https://www.publicdomainpictures.net/pictures/230000/velka/fa-18-hornet.jpg')">Plane 2 - F-18F</button>
   </div>
 
-  
   <div id="plane1" class="section">
-    <style>
-    body{ background-image: url('https://israelnoticias.com/wp-content/uploads/2023/09/Yak-130-transformed-il.webp');}
-    </style>
     <h1>YAK-130 V2</h1>
     <ul>
-      <li> AMA Insurance: $85</li>
+      <li>AMA Insurance: $85</li>
       <li>FAA Registration: $5</li>
-      <li> Plane Price: $339.99 
+      <li>Plane Price: $339.99 
         (<a href="https://www.horizonhobby.com/product/yak-130-v2-70mm-edf-jet-red-pnp/FMM108P2.html" target="_blank">Buy Plane</a>)
       </li>
-      <li> Battery: $74.79 (Pack of Two)
-        (<a href="https://www.amazon.com/Battery-3300mAh-Airplane-Helicopter-Quadcopter/dp/B085FT8B74/ref=sr_1_4_sspa?crid=LIBBJWC9DAJE&dib=eyJ2IjoiMSJ9.mzE2XhPNwdgctWFuKXvmoqeuDpdS4kz1C57u2UowCZUclo2CMsJmq4ggCXdkbBHqZeC2Qw6GNnpbMDLZz2yvRviI2jIIZLSDBuqbSrtvjIJLpBIqj50Z2aUutmfVlNNKE7jnVVkxlLkPf4D3dHJ2PA8Htp50zv3U-lTqmyLXcLp7C49OvNOrD1D8ZwaVgGpAoYJiB3BJH8q2SnDKXW3qF-YHhwdc3EhhREMIaNhMA3sB58qqA-gAJks56vRKsPJsylwCtia3XgqIi5IhCKr0nIH5XQKuejB6vbIZE7rgaT4.MID8TjNmIZtugtaiNLc_sGzws3iARgVxkkSv0dp3hZ4&dib_tag=se&keywords=6s%2Bbattery&qid=1748043247&sprefix=6s%2Bba%2Caps%2C229&sr=8-4-spons&sp_csd=d2lkZ2V0TmFtZT1zcF9hdGY&th=1" target="_blank">Buy Battery</a>)
+      <li>Battery: $74.79 (Pack of Two)
+        (<a href="https://www.amazon.com/dp/B085FT8B74" target="_blank">Buy Battery</a>)
       </li>
-      <li> Charger: $56.49
-        (<a href="https://www.amazon.com/OVONIC-Balance-Charger-Battery-Li-ion/dp/B0DK2YLF4T/ref=sr_1_24?crid=39FFBRBQJAZRV&dib=eyJ2IjoiMSJ9.Tq8CmyGDddU3iSA37oKQyv3VFeMQ42y1-g8pPBnnsANUyXHDTPOCXVPyUyDoZ-nk_NCbUpSYTLbQE09wIl-oqlw4YnD9XRdBiHrpxmg2SkfAQ48eCiwSi3RKYqDvXoJzd9FMyFq69tJFcWtDmA3M4FMvVkbj3Zc8SNUt8fJ27btMqLA5N66oginKdRQNdGc5Lzdh3MxN1KfGrcROIYSWUZvUAI1dBIXD1Dup6ZtSFJqq9qIA8TPPdBtaeQqh_YSi9n8XIQyzLEX49SJovRaMbbhKWAxKMR9dmPUYPzx_iYw.tNqZ2sJp3RIRu2GOsuuUgmohvA70XH-t6EnEYmoqsVE&dib_tag=se&keywords=lipo+battery+charger+multi+purpose+for+6s&qid=1748043406&sprefix=lipo+battery+charger+multi+purpose+for+6s%2Caps%2C166&sr=8-24" target="_blank">Buy Charger</a>)
+      <li>Charger: $56.49
+        (<a href="https://www.amazon.com/dp/B0DK2YLF4T" target="_blank">Buy Charger</a>)
       </li>
     </ul>
-    <p class="total"><strong> Grand Total:</strong> $609.78</p>
-    <button onclick="showSection('home')"> Back to Home</button>
+    <p class="total">Grand Total: $609.78</p>
+    <button onclick="showSection('home')">Back to Home</button>
   </div>
 
   <div id="plane2" class="section">
-    <style>
-    body{ background-image: url('https://www.publicdomainpictures.net/pictures/230000/velka/fa-18-hornet.jpg');}
-    </style>
-   
-    <h1>F-18F </h1>
+    <h1>F-18F</h1>
     <ul>
-      <li> AMA Insurance: $85</li>
-      <li> FAA Registration: $5</li>
-      <li> Plane Price: $319.99 
+      <li>AMA Insurance: $85</li>
+      <li>FAA Registration: $5</li>
+      <li>Plane Price: $319.99 
         (<a href="https://www.horizonhobby.com/product/f-18f-70mm-edf-jet-v2-pnp/FMM100P.html" target="_blank">Buy Plane</a>)
       </li>
-      <li> Battery: $74.79 (Pack of Two)
-        (<a href="https://www.amazon.com/Battery-3300mAh-Airplane-Helicopter-Quadcopter/dp/B085FT8B74/ref=sr_1_4_sspa?crid=LIBBJWC9DAJE&dib=eyJ2IjoiMSJ9.mzE2XhPNwdgctWFuKXvmoqeuDpdS4kz1C57u2UowCZUclo2CMsJmq4ggCXdkbBHqZeC2Qw6GNnpbMDLZz2yvRviI2jIIZLSDBuqbSrtvjIJLpBIqj50Z2aUutmfVlNNKE7jnVVkxlLkPf4D3dHJ2PA8Htp50zv3U-lTqmyLXcLp7C49OvNOrD1D8ZwaVgGpAoYJiB3BJH8q2SnDKXW3qF-YHhwdc3EhhREMIaNhMA3sB58qqA-gAJks56vRKsPJsylwCtia3XgqIi5IhCKr0nIH5XQKuejB6vbIZE7rgaT4.MID8TjNmIZtugtaiNLc_sGzws3iARgVxkkSv0dp3hZ4&dib_tag=se&keywords=6s%2Bbattery&qid=1748043247&sprefix=6s%2Bba%2Caps%2C229&sr=8-4-spons&sp_csd=d2lkZ2V0TmFtZT1zcF9hdGY&th=1" target="_blank">Buy Battery</a>)
+      <li>Battery: $74.79 (Pack of Two)
+        (<a href="https://www.amazon.com/dp/B085FT8B74" target="_blank">Buy Battery</a>)
       </li>
-      <li> Charger: $56.49
-        (<a href="https://www.amazon.com/OVONIC-Balance-Charger-Battery-Li-ion/dp/B0DK2YLF4T/ref=sr_1_24?crid=39FFBRBQJAZRV&dib=eyJ2IjoiMSJ9.Tq8CmyGDddU3iSA37oKQyv3VFeMQ42y1-g8pPBnnsANUyXHDTPOCXVPyUyDoZ-nk_NCbUpSYTLbQE09wIl-oqlw4YnD9XRdBiHrpxmg2SkfAQ48eCiwSi3RKYqDvXoJzd9FMyFq69tJFcWtDmA3M4FMvVkbj3Zc8SNUt8fJ27btMqLA5N66oginKdRQNdGc5Lzdh3MxN1KfGrcROIYSWUZvUAI1dBIXD1Dup6ZtSFJqq9qIA8TPPdBtaeQqh_YSi9n8XIQyzLEX49SJovRaMbbhKWAxKMR9dmPUYPzx_iYw.tNqZ2sJp3RIRu2GOsuuUgmohvA70XH-t6EnEYmoqsVE&dib_tag=se&keywords=lipo+battery+charger+multi+purpose+for+6s&qid=1748043406&sprefix=lipo+battery+charger+multi+purpose+for+6s%2Caps%2C166&sr=8-24" target="_blank">Buy Charger</a>)
+      <li>Charger: $56.49
+        (<a href="https://www.amazon.com/dp/B0DK2YLF4T" target="_blank">Buy Charger</a>)
       </li>
     </ul>
-    <p class="total"><strong> Grand Total:</strong> $589.78</p>
-    <button onclick="showSection('home')"> Back to Home</button>
+    <p class="total">Grand Total: $589.78</p>
+    <button onclick="showSection('home')">Back to Home</button>
   </div>
 
   <script>
-    function showSection(id) {
+    function showSection(id, backgroundUrl = null) {
       document.querySelectorAll('.section').forEach(section => section.classList.remove('visible'));
       document.getElementById(id).classList.add('visible');
+      if (backgroundUrl !== null) {
+        document.body.style.backgroundImage = `url('${backgroundUrl}')`;
+      } else {
+        document.body.style.backgroundImage = '';
+      }
     }
   </script>
 
