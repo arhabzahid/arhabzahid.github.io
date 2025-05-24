@@ -1,47 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Planes</title>
+  <meta charset="UTF-8" />
+  <title>My Hobby Plane Collection</title>
   <style>
+    /* Body & background */
     body {
-      font-family: Arial, sans-serif;
-      padding: 20px;
       margin: 0;
-      transition: background-image 0.5s ease-in-out;
-      background-size: cover;
-      background-position: center;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-image: url('https://i.pinimg.com/originals/71/93/35/7193357ed9ce11917b106be57f4d4af7.jpg');
       background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+      min-height: 100vh;
+      transition: background-image 0.5s ease-in-out;
     }
-    button {
-      padding: 10px 20px;
-      margin: 10px;
-      font-size: 16px;
-      cursor: pointer;
-      border-radius: 25px;
-      border: none;
-      background-color: #007BFF;
-      color: white;
-      transition: background-color 0.3s;
-    }
-    button:hover {
-      background-color: #0056b3;
-    }
+
+    /* Sections */
     .section {
       display: none;
-      background-color: rgba(255, 255, 255, 0.9);
-      padding: 20px;
-      border-radius: 10px;
+      padding: 30px 20px;
+      max-width: 700px;
+      margin: 50px auto;
+      background-color: rgba(255, 255, 255, 0.85);
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
     }
+
     .visible {
       display: block;
     }
-    a {
-      color: blue;
+
+    /* Buttons */
+    button {
+      background-color: #007bff;
+      border: none;
+      padding: 10px 20px;
+      margin: 10px 5px 0 0;
+      border-radius: 12px;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
     }
-    .total {
-      font-size: 18px;
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    /* Links */
+    a {
+      color: #007bff;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    /* List styles */
+    ul {
+      padding-left: 20px;
+    }
+
+    p.total {
       font-weight: bold;
+      font-size: 18px;
+      margin-top: 15px;
     }
   </style>
 </head>
@@ -50,10 +76,10 @@
   <div id="home" class="section visible">
     <h1>Welcome to My Hobby Plane Collection</h1>
     <p><strong>AMA Insurance:</strong> $85/year 
-      (<a href="https://www.modelaircraft.org/membership/enroll" target="_blank">Join AMA</a>)
+      (<a href="https://www.modelaircraft.org/membership/enroll" target="_blank" rel="noopener noreferrer">Join AMA</a>)
     </p>
     <p><strong>FAA Registration:</strong> $5/year 
-      (<a href="https://faadronezone-access.faa.gov/" target="_blank">Register with FAA</a>)
+      (<a href="https://faadronezone-access.faa.gov/" target="_blank" rel="noopener noreferrer">Register with FAA</a>)
     </p>
     <button onclick="showSection('plane1', 'https://israelnoticias.com/wp-content/uploads/2023/09/Yak-130-transformed-il.webp')">Plane 1 - YAK-130 V2</button>
     <button onclick="showSection('plane2', 'https://www.publicdomainpictures.net/pictures/230000/velka/fa-18-hornet.jpg')">Plane 2 - F-18F</button>
@@ -65,13 +91,13 @@
       <li>AMA Insurance: $85</li>
       <li>FAA Registration: $5</li>
       <li>Plane Price: $339.99 
-        (<a href="https://www.horizonhobby.com/product/yak-130-v2-70mm-edf-jet-red-pnp/FMM108P2.html" target="_blank">Buy Plane</a>)
+        (<a href="https://www.horizonhobby.com/product/yak-130-v2-70mm-edf-jet-red-pnp/FMM108P2.html" target="_blank" rel="noopener noreferrer">Buy Plane</a>)
       </li>
       <li>Battery: $74.79 (Pack of Two)
-        (<a href="https://www.amazon.com/dp/B085FT8B74" target="_blank">Buy Battery</a>)
+        (<a href="https://www.amazon.com/dp/B085FT8B74" target="_blank" rel="noopener noreferrer">Buy Battery</a>)
       </li>
       <li>Charger: $56.49
-        (<a href="https://www.amazon.com/dp/B0DK2YLF4T" target="_blank">Buy Charger</a>)
+        (<a href="https://www.amazon.com/dp/B0DK2YLF4T" target="_blank" rel="noopener noreferrer">Buy Charger</a>)
       </li>
     </ul>
     <p class="total">Grand Total: $609.78</p>
@@ -84,30 +110,31 @@
       <li>AMA Insurance: $85</li>
       <li>FAA Registration: $5</li>
       <li>Plane Price: $319.99 
-        (<a href="https://www.horizonhobby.com/product/f-18f-70mm-edf-jet-v2-pnp/FMM100P.html" target="_blank">Buy Plane</a>)
+        (<a href="https://www.horizonhobby.com/product/f-18f-70mm-edf-jet-v2-pnp/FMM100P.html" target="_blank" rel="noopener noreferrer">Buy Plane</a>)
       </li>
       <li>Battery: $74.79 (Pack of Two)
-        (<a href="https://www.amazon.com/dp/B085FT8B74" target="_blank">Buy Battery</a>)
+        (<a href="https://www.amazon.com/dp/B085FT8B74" target="_blank" rel="noopener noreferrer">Buy Battery</a>)
       </li>
       <li>Charger: $56.49
-        (<a href="https://www.amazon.com/dp/B0DK2YLF4T" target="_blank">Buy Charger</a>)
+        (<a href="https://www.amazon.com/dp/B0DK2YLF4T" target="_blank" rel="noopener noreferrer">Buy Charger</a>)
       </li>
     </ul>
     <p class="total">Grand Total: $589.78</p>
     <button onclick="showSection('home')">Back to Home</button>
   </div>
 
-  <script>
-    function showSection(id, backgroundUrl = null) {
-      document.querySelectorAll('.section').forEach(section => section.classList.remove('visible'));
-      document.getElementById(id).classList.add('visible');
-      if (backgroundUrl !== null) {
-        document.body.style.backgroundImage = `url('${backgroundUrl}')`;
-      } else {
-        document.body.style.backgroundImage = '';
-      }
+<script>
+  function showSection(id, backgroundUrl = null) {
+    document.querySelectorAll('.section').forEach(section => section.classList.remove('visible'));
+    document.getElementById(id).classList.add('visible');
+    if (backgroundUrl !== null) {
+      document.body.style.backgroundImage = `url('${backgroundUrl}')`;
+    } else {
+      // default background
+      document.body.style.backgroundImage = "url('https://i.pinimg.com/originals/71/93/35/7193357ed9ce11917b106be57f4d4af7.jpg')";
     }
-  </script>
+  }
+</script>
 
 </body>
 </html>
