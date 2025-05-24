@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Hobby Planes</title>
+  <style>
+    body { font-family: Arial; padding: 20px; }
+    button { padding: 10px 20px; margin: 10px; font-size: 16px; cursor: pointer; }
+    .section { display: none; }
+    .visible { display: block; }
+    a { color: blue; }
+  </style>
+</head>
+<body>
+
+  <!-- Home Section -->
+  <div id="home" class="section visible">
+    <h1>Welcome to My Hobby Plane Collection</h1>
+    <p>✅ <strong>AMA Insurance:</strong> $85/year 
+      (<a href="https://www.modelaircraft.org/membership/enroll" target="_blank">Join AMA</a>)
+    </p>
+    <p>✅ <strong>FAA Registration:</strong> $5/year 
+      (<a href="https://faadronezone-access.faa.gov/" target="_blank">Register with FAA</a>)
+    </p>
+
+    <button onclick="showSection('plane1')">Plane 1 - Night Timber X</button>
+    <button onclick="showSection('plane2')">Plane 2 - AeroScout S 2</button>
+  </div>
+
+  <!-- Plane 1 Section -->
+  <div id="plane1" class="section">
+    <h1>Night Timber X</h1>
+    <ul>
+      <li>✅ AMA Insurance: $85</li>
+      <li>✅ FAA Registration: $5</li>
+      <li>✈️ Plane Price: $299.99 
+        (<a href="https://www.horizonhobby.com/product/night-timber-x-1.2m-bnf-basic-with-as3x-and-safe-select/EFL13850.html" target="_blank">Buy Plane</a>)
+      </li>
+      <li>🔋 Battery: $44.99 
+        (<a href="https://www.horizonhobby.com/product/11.1v-2200mah-3s-30c-smart-lipo-battery-ic3/SPECP22003S30.html" target="_blank">Buy Battery</a>)
+      </li>
+      <li>🔌 Charger: $59.99 
+        (<a href="https://www.horizonhobby.com/product/s100-smart-usb-c-charger-1x20w/SPE-S100.html" target="_blank">Buy Charger</a>)
+      </li>
+    </ul>
+    <p class="total"><strong>💰 Grand Total:</strong> $494.98</p>
+    <button onclick="showSection('home')">⬅️ Back to Home</button>
+  </div>
+
+  <!-- Plane 2 Section -->
+  <div id="plane2" class="section">
+    <h1>AeroScout S 2</h1>
+    <ul>
+      <li>✅ AMA Insurance: $85</li>
+      <li>✅ FAA Registration: $5</li>
+      <li>✈️ Plane Price: $199.99 
+        (<a href="https://www.horizonhobby.com/product/aeroscout-s-2-1.1m-rtf-basic-with-smart-tech/HBZ380001.html" target="_blank">Buy Plane</a>)
+      </li>
+      <li>🔋 Battery: $39.99 
+        (<a href="https://www.horizonhobby.com/product/11.1v-2200mah-3s-30c-smart-lipo-battery-ic3/SPECP22003S30.html" target="_blank">Buy Battery</a>)
+      </li>
+      <li>🔌 Charger: $29.99 
+        (<a href="https://www.horizonhobby.com/product/s150-ac-smart-charger-1x50w/SPE-S150.html" target="_blank">Buy Charger</a>)
+      </li>
+    </ul>
+    <p class="total"><strong>💰 Grand Total:</strong> $359.97</p>
+    <button onclick="showSection('home')">⬅️ Back to Home</button>
+  </div>
+
+  <script>
+    function showSection(id) {
+      document.querySelectorAll('.section').forEach(section => section.classList.remove('visible'));
+      document.getElementById(id).classList.add('visible');
+    }
+  </script>
+
+</body>
+</html>
