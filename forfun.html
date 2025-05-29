@@ -1,140 +1,101 @@
 <!DOCTYPE html>
-<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>My Hobby Plane Collection</title>
-  <style>
-    /* Body & background */
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-      background-image: url('https://i.pinimg.com/originals/71/93/35/7193357ed9ce11917b106be57f4d4af7.jpg');
-      background-repeat: no-repeat;
-      background-position: center;
-      background-size: cover;
-      min-height: 100vh;
-      transition: background-image 0.5s ease-in-out;
-    }
+    <title> Rista Registeration  </title>
+    
+    <!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+<!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" 
+integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" 
+integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 
-    /* Sections */
-    .section {
-      display: none;
-      padding: 30px 20px;
-      max-width: 700px;
-      margin: 50px auto;
-      background-color: rgba(255, 255, 255, 0.85);
-      border-radius: 16px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-    }
+    <script>
+        function submitForm(){
+            var elements = document.getElementById("myForm").elements;
+            var elemArr1 =Array.from(elements); 
+            var submission = {};
+            elemArr1.forEach((element)=>
+            {if (element.name){
+                 submission[element.name]=element.value; 
+            };
+        });
+        var p=submission["Pass"] || "";
+        var correctpassword=p.includes("!")||p.includes("?");
 
-    .visible {
-      display: block;
-    }
+        submission["Pass"] =  "*".repeat(p.length);
+        
+        var aproval;
+        if (correctpassword){aproval="<strong>Submission Successful!</strong>";
 
-    /* Buttons */
-    button {
-      background-color: #007bff;
-      border: none;
-      padding: 10px 20px;
-      margin: 10px 5px 0 0;
-      border-radius: 12px;
-      color: white;
-      font-size: 16px;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
+        }else{aproval="<strong>Submission Unsuccessful! Password must contain ! and ? </strong>";    
 
-    button:hover {
-      background-color: #0056b3;
-    }
+        }
+        var demo = `
+                ${aproval}<br>
+                First Name: ${submission["fname"] || ""}<br>
+                Last Name: ${submission["lname"] || ""}<br>
+                Date of Birth: ${submission["fdate"] || ""}<br>
+                Age:${submission[ "Age"]||""} <br> 
+                Place of Birth:${submission ["pob"]||""} <br> 
+                Qualification:${submission[ "qa"]||""} <br> 
+                Job:${submission[ "job"]||""} <br> 
+                Father Name:${submission["faname"]||""}<br> 
+                Father source of income:${submission[ "fainco"]||""} <br> 
+                Mother name:${submission["moname"]||""} <br> 
+                Mother source of income/house wife:${submission[ "moinco"]||""} <br> 
+                Email: ${submission["email"] || ""}<br>
+                Password: ${submission["Pass"]}
+            `;
+           
+            document.getElementById("demo").innerHTML = demo; 
+         
 
-    /* Links */
-    a {
-      color: #007bff;
-      text-decoration: none;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
-
-    /* List styles */
-    ul {
-      padding-left: 20px;
-    }
-
-    p.total {
-      font-weight: bold;
-      font-size: 18px;
-      margin-top: 15px;
-    }
-  </style>
+        }
+        </script>
 </head>
 <body>
-
-  <div id="home" class="section visible">
-    <h1>Welcome to My Hobby Plane Collection</h1>
-    <p><strong>AMA Insurance:</strong> $85/year 
-      (<a href="https://www.modelaircraft.org/membership/enroll" target="_blank" rel="noopener noreferrer">Join AMA</a>)
-    </p>
-    <p><strong>FAA Registration:</strong> $5/year 
-      (<a href="https://faadronezone-access.faa.gov/" target="_blank" rel="noopener noreferrer">Register with FAA</a>)
-    </p>
-    <button onclick="showSection('plane1', 'https://israelnoticias.com/wp-content/uploads/2023/09/Yak-130-transformed-il.webp')">Plane 1 - YAK-130 V2</button>
-    <button onclick="showSection('plane2', 'https://www.publicdomainpictures.net/pictures/230000/velka/fa-18-hornet.jpg')">Plane 2 - F-18F</button>
-  </div>
-
-  <div id="plane1" class="section">
-    <h1>YAK-130 V2</h1>
-    <ul>
-      <li>AMA Insurance: $85</li>
-      <li>FAA Registration: $5</li>
-      <li>Plane Price: $339.99 
-        (<a href="https://www.horizonhobby.com/product/yak-130-v2-70mm-edf-jet-red-pnp/FMM108P2.html" target="_blank" rel="noopener noreferrer">Buy Plane</a>)
-      </li>
-      <li>Battery: $74.79 (Pack of Two)
-        (<a href="https://www.amazon.com/dp/B085FT8B74" target="_blank" rel="noopener noreferrer">Buy Battery</a>)
-      </li>
-      <li>Charger: $56.49
-        (<a href="https://www.amazon.com/dp/B0DK2YLF4T" target="_blank" rel="noopener noreferrer">Buy Charger</a>)
-      </li>
-    </ul>
-    <p class="total">Grand Total: $609.78</p>
-    <button onclick="showSection('home')">Back to Home</button>
-  </div>
-
-  <div id="plane2" class="section">
-    <h1>F-18F</h1>
-    <ul>
-      <li>AMA Insurance: $85</li>
-      <li>FAA Registration: $5</li>
-      <li>Plane Price: $319.99 
-        (<a href="https://www.horizonhobby.com/product/f-18f-70mm-edf-jet-v2-pnp/FMM100P.html" target="_blank" rel="noopener noreferrer">Buy Plane</a>)
-      </li>
-      <li>Battery: $74.79 (Pack of Two)
-        (<a href="https://www.amazon.com/dp/B085FT8B74" target="_blank" rel="noopener noreferrer">Buy Battery</a>)
-      </li>
-      <li>Charger: $56.49
-        (<a href="https://www.amazon.com/dp/B0DK2YLF4T" target="_blank" rel="noopener noreferrer">Buy Charger</a>)
-      </li>
-    </ul>
-    <p class="total">Grand Total: $589.78</p>
-    <button onclick="showSection('home')">Back to Home</button>
-  </div>
-
-<script>
-  function showSection(id, backgroundUrl = null) {
-    document.querySelectorAll('.section').forEach(section => section.classList.remove('visible'));
-    document.getElementById(id).classList.add('visible');
-    if (backgroundUrl !== null) {
-      document.body.style.backgroundImage = `url('${backgroundUrl}')`;
-    } else {
-      // default background
-      document.body.style.backgroundImage = "url('https://i.pinimg.com/originals/71/93/35/7193357ed9ce11917b106be57f4d4af7.jpg')";
-    }
-  }
-</script>
-
+    <div class=" container text-center">
+        <h1 class="my-4"> Air Field Registration </h1>
+        <div class="card" style="width: 18rem; margin: 0 auto;">
+            <img src="https://wallpaperaccess.com/full/5458954.jpg" class="card-img-top" >
+            <div class ="card-body">
+                <p class="card-text">Air plane docking station.</p>
+             </div>
+            </div>
+            
+        
+  
+    <form id = "myForm">
+        First Name:    <input type = "text" name = "fname" value = "  "><br>
+        Last Name:     <input type = "text" name = "lname" value = " "><br>
+        Date of Birth: <input type = "text" name = "fdate" value = " "><br>
+        Age:      <input type = "text" name = "Age" value = " "><br> 
+        Place of Birth:<input type = "text" name = "pob" value = " "><br> 
+        Qualification:<input type = "text" name = "qa" value = " "><br> 
+        Job:<input type = "text" name = "job" value = " "><br> 
+        Father Name:      <input type = "text" name = "faname" value = " "><br> 
+        Father source of income:<input type = "text" name = "fainco" value = " "><br> 
+        Mother name:<input type = "text" name = "moname" value = " "><br> 
+        Mother source of income/house wife:<input type = "text" name = "moinco" value = " "><br> 
+        Email Id:      <input type = "text" name = "email" value = " "><br>
+        Password:      <input type = "text" name = "Pass" value = " "><br> 
+    </form>
+    <button onclick = "submitForm()">submit</button>
+    <p>Password must contain ! </p>
+    <p>Click submit and try me </p>
+ <p id = "demo" ></p>
+ 
+ 
+   
+   
+</div>
+   
 </body>
+<hr class="horizontal rule ">
+<span>May 29, 2025 - Arhab Zahid</span>
+<hr class="horizontal rule ">
 </html>
+
