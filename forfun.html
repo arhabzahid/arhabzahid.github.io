@@ -38,10 +38,11 @@ integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cD
         submission["Pass"] =  "*".repeat(p.length);
         
         var aproval;
-        if (correctpassword){aproval="<strong>Submission Successful!</strong>";
-        const profileId = `R-${userId++}`;
-        profiles.push({ id: profileId, name: submission["fname"] || "Unnamed"});
-        updateProfileview();
+        if (correctpassword){
+            const profileId = `R-${userId++}`;
+            aproval=`<strong>Submission Successful!</strong> your Profile ID is <strong>${profileId}</strong>`;
+            profiles.push({ id: profileId, name: submission["fname"] || "Unnamed"});
+            updateProfileview();
 
         }else{aproval="<strong>Submission Unsuccessful! Password must contain ! and ? </strong>";    
 
