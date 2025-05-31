@@ -13,6 +13,12 @@ integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2
 integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 
     <script>
+        function showselection(id){
+            document.getElementById("home").style.display="none";
+            document.getElementById("register").style.display="none";
+            document.getElementById("profiles").style.display="none";
+            document.getElementById(id).style.display="block";
+        }
         function submitForm(){
             var elements = document.getElementById("myForm").elements;
             var elemArr1 =Array.from(elements); 
@@ -56,46 +62,118 @@ integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cD
         }
         </script>
 </head>
-<body>
+<body onload="showselection('home')">
     <div class=" container text-center">
         <h1 class="my-4">  Rista Registeration </h1>
-        <div class="card" style="width: 18rem; margin: 0 auto;">
+        <div id="home">
+            <div class="text-center">
+                <button class="btn btn-primary m-2" onclick="showselection('register')">Register Yourself</button>
+                <button class="btn btn-secondary m-2" onclick="showselection('profiles')">View Profiles</button>
+            </div>
+        </div>
+
+        <div id="register" style="display:none">
+        <div class="card mx-auto" style="max-width: 600px;">
             <img src="https://wallpaperaccess.com/full/5458954.jpg" class="card-img-top" >
             <div class ="card-body">
                 <p class="card-text">MADE FOR EACH OTHER</p>
-             </div>
             </div>
+         </div>
             
         
   
-    <form id = "myForm">
-        First Name:    <input type = "text" name = "fname" value = "  "><br>
-        Last Name:     <input type = "text" name = "lname" value = " "><br>
-        Date of Birth: <input type = "text" name = "fdate" value = " "><br>
-        Age:      <input type = "text" name = "Age" value = " "><br> 
-        Place of Birth:<input type = "text" name = "pob" value = " "><br> 
-        Qualification:<input type = "text" name = "qa" value = " "><br> 
-        Job:<input type = "text" name = "job" value = " "><br> 
-        Father Name:      <input type = "text" name = "faname" value = " "><br> 
-        Father source of income:<input type = "text" name = "fainco" value = " "><br> 
-        Mother name:<input type = "text" name = "moname" value = " "><br> 
-        Mother source of income/house wife:<input type = "text" name = "moinco" value = " "><br> 
-        Email Id:      <input type = "text" name = "email" value = " "><br>
-        Password:      <input type = "text" name = "Pass" value = " "><br> 
+    <form id = "myForm" class="row g-3 mt-3">
+       
+        <div class="col-md-6">
+            <label class="form-label">First Name</label>     
+            <input type = "text" name = "fname" class="form-control">
+        </div>
+        
+        <div class="col-md-6">
+            <label class="form-label">Last Name</label>     
+             <input type = "text" name = "lname" class="form-control">
+        </div>
+             
+         <div class="col-md-6">
+            <label class="form-label">Date of Birth</label>     
+            <input type = "text" name = "fdate" class="form-control">
+        </div>
+        
+        <div class="col-md-6">
+            <label class="form-label"> Age</label>     
+            <input type = "text" name = "Age" class="form-control">
+        </div>
+       
+        <div class="col-md-6">
+            <label class="form-label">Place of Birth</label>     
+            <input type = "text" name = "pob" class="form-control">
+        </div>
+      
+        <div class="col-md-6">
+            <label class="form-label"> Qualification</label>     
+            <input type = "text" name = "qa" class="form-control"> 
+        </div>
+       
+        <div class="col-md-6">
+            <label class="form-label">Job</label>     
+            <input type = "text" name = "job" class="form-control">
+        </div>
+       
+        <div class="col-md-6">
+            <label class="form-label">Father Name</label>     
+            <input type = "text" name = "faname" class="form-control"> 
+        </div>
+        
+        <div class="col-md-6">
+            <label class="form-label">Father source of income</label>     
+            <input type = "text" name = "fainco" class="form-control"> 
+        </div>
+      
+         <div class="col-md-6">
+            <label class="form-label"> Mother name</label>     
+            <input type = "text" name = "moname"class="form-control"> 
+        </div>
+         
+        <div class="col-md-6">
+            <label class="form-label"> Mother source of income/house wife</label>     
+            <input type = "text" name = "moinco"class="form-control"> 
+        </div>
+        
+        <div class="col-md-6">
+            <label class="form-label"> Email Id</label>     
+            <input type = "text" name = "email" class="form-control">
+        </div>
+       
+        <div class="col-md-6">
+            <label class="form-label"> Password</label>     
+            <input type = "text" name = "Pass" class="form-control"> 
+        </div>
+       
+         <div class="col-12 text-center">
+            <button type="button" class="btn btn-success mt-3" onclick="submitForm()">Submit</button>
+             <p class="mt-2">Password must contain ! and ? </p>
+             <p id="demo" class="mt-2" ></p>
+             <button class="btn btn-link mt-2" onclick="showselection('home')">Back to home</button>
+        </div>
     </form>
-    <button onclick = "submitForm()">submit</button>
-    <p>Password must contain ! </p>
-    <p>Click submit and try me </p>
- <p id = "demo" ></p>
- 
- 
-   
-   
+    
+    </div>
+
+
+<div id ="profiles" style="display:none">
+    <h3 class ="text-center">other profiles</h3>
+    <p class="text-center">Best Life Patners </p>
+    <div class="text-center">
+        <button class="btn btn-link" onclick="showselection('home')">back to home</button>
+    </div>
 </div>
-   
+
+<hr>
+<footer class="text-center">
+    <small>May 29,2025 - Arhab Zahid</small>
+</footer>
+   </div>
 </body>
-<hr class="horizontal rule ">
-<span>May 29, 2025 - Arhab Zahid</span>
-<hr class="horizontal rule ">
+
 </html>
 
