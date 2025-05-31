@@ -13,6 +13,9 @@ integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2
 integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 
     <script>
+        let profiles =[];
+        let userId =1;
+
         function showselection(id){
             document.getElementById("home").style.display="none";
             document.getElementById("register").style.display="none";
@@ -23,9 +26,10 @@ integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cD
             var elements = document.getElementById("myForm").elements;
             var elemArr1 =Array.from(elements); 
             var submission = {};
+
             elemArr1.forEach((element)=>
             {if (element.name){
-                 submission[element.name]=element.value; 
+                 submission[element.name]=element.value.trim(); 
             };
         });
         var p=submission["Pass"] || "";
@@ -35,6 +39,9 @@ integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cD
         
         var aproval;
         if (correctpassword){aproval="<strong>Submission Successful!</strong>";
+        const profileId = `R-${userId++}`;
+        profiles.push({ id: profileId, name: submission["fname"] || "Unnamed"});
+        updateProfileview();
 
         }else{aproval="<strong>Submission Unsuccessful! Password must contain ! and ? </strong>";    
 
@@ -57,8 +64,10 @@ integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cD
             `;
            
             document.getElementById("demo").innerHTML = demo; 
-         
-
+        }
+        function updateProfileview(){
+            const list = profiles.map(p=>`<li>${p.id}-${p.name}</li>`).join("");
+            document.getElementById("profilelist").innerHTML =`<ul>${list}</ul>`;
         }
         </script>
 </head>
@@ -161,7 +170,9 @@ integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cD
 
 
 <div id ="profiles" style="display:none">
-    <h3 class ="text-center">other profiles</h3>
+    <h3 class ="text-center">Submitted Profiles</h2>
+    <h2 class ="text-center">Other Profiles</h3>
+        <div id ="profilelist">No submission yet.</div>
     <p class="text-center">Best Life Patners </p>
     <div class="text-center">
         <button class="btn btn-link" onclick="showselection('home')">back to home</button>
