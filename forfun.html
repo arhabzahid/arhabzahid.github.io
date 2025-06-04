@@ -65,11 +65,12 @@ integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cD
             if (correctpassword){
                 console.log("current userid:", userId);
                  profileId = `R-${userId++}`;
+                 sessionStorage.setItem('userId', userId);
                  aproval=`<strong>Submission Successful!</strong> your Profile ID is <strong>${profileId}</strong>`;
                  profiles.push({ id: profileId, name: submission["fname"] || "Unnamed", photo: submission["photo"]});
                  updateProfileview();
                  document.getElementById("demo").innerHTML = aproval;
-                 document.getElementById("myform").rest();
+                 document.getElementById("myform").reset();
                 }else{
                     aproval="<strong>Submission Unsuccessful! Password must contain ! and ? </strong>";
                     var demo = `
