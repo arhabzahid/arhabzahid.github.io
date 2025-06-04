@@ -26,6 +26,7 @@ integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cD
             var elements = document.getElementById("myForm").elements;
             var photoFile = document.getElementById("photoInput").files[0];
             var submission = {};
+            var elemArr1 =Array.from(elements); 
 
             
             elemArr1.forEach((element)=>
@@ -51,7 +52,7 @@ integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cD
                 finalizeSubmission(submission, correctpassword);
             }return;
 
-            var elemArr1 =Array.from(elements); 
+           
            
 
             function finalizeSubmission(submission, correctpassword){
@@ -87,7 +88,7 @@ integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cD
     }
         function updateProfileview(){
             const list = profiles.map(p => {
-                letimgTag = p.photo ? `<img src="${p.photo}" alt="photo" width="50" height="50" style ="border-radius:50%;" margin-right:10px;">`:"";
+                let imgTag = p.photo ? `<img src="${p.photo}" alt="photo" width="50" height="50" style ="border-radius:50%;" margin-right:10px;">`:"";
                 return `<li>${imTag}${p.id} - ${p.name}</li>`;
             }).join("");
             document.getElementById("profilelist").innerHTML=`<ul>${list}</ul>`;
