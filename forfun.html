@@ -55,18 +55,15 @@ integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cD
         }
            
 
-            function finalizeSubmission(submission, correctpassword){
-        var aproval;
-        if (correctpassword){
-            const profileId = `R-${userId++}`;
-            aproval=`<strong>Submission Successful!</strong> your Profile ID is <strong>${profileId}</strong>`;
-            profiles.push({ id: profileId, name: submission["fname"] || "Unnamed", photo: submission["photo"]});
-            updateProfileview();
-
-        }else{aproval="<strong>Submission Unsuccessful! Password must contain ! and ? </strong>";    
-
-        }
-        var demo = `
+        function finalizeSubmission(submission, correctpassword){
+            var aproval;
+             if (correctpassword){
+                 const profileId = `R-${userId++}`;
+                 aproval=`<strong>Submission Successful!</strong> your Profile ID is <strong>${profileId}</strong>`;
+                 profiles.push({ id: profileId, name: submission["fname"] || "Unnamed", photo: submission["photo"]});
+                 updateProfileview();
+                }else{aproval="<strong>Submission Unsuccessful! Password must contain ! and ? </strong>";    
+                var demo = `
                 ${aproval}<br>
                 First Name: ${submission["fname"] || ""}<br>
                 Last Name: ${submission["lname"] || ""}<br>
@@ -81,9 +78,9 @@ integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cD
                 Mother source of income/house wife:${submission[ "moinco"]||""} <br> 
                 Email: ${submission["email"] || ""}<br>
                 Password: ${submission["Pass"]}
-            `;
-           
-            document.getElementById("demo").innerHTML = demo; 
+                `;
+                document.getElementById("demo").innerHTML = demo; 
+            }
         }
     
         function updateProfileview(){
