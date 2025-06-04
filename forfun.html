@@ -25,23 +25,11 @@ integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cD
         function submitForm(){
             var elements = document.getElementById("myForm").elements;
             var photoFile = document.getElementById("photoInput").files[0];
-            if(photoFile){
-                var reader = new FileReader();
-                reader.onload = function(e){
-                   submission["photo"] =e.target.result;
-                   finalizeSubmission(submission); 
-                };
-                reader.readAsDataURL(photoFile);
-            }else{
-                submission["photo"]="";
-                finalizeSubmission(submission);
-            }return;
-
-            var elemArr1 =Array.from(elements); 
             var submission = {};
 
+            
             elemArr1.forEach((element)=>
-            {if (element.name){
+            {if (element.name && element.type !== "file"){
                  submission[element.name]=element.value.trim(); 
             };
         });
@@ -49,7 +37,24 @@ integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cD
         var correctpassword=p.includes("!")||p.includes("?");
 
         submission["Pass"] =  "*".repeat(p.length);
-        
+        var photoFile = document.getElementById("photoInput").files[0];
+
+            if(photoFile){
+                var reader = new FileReader();
+                reader.onload = function(e){
+                   submission["photo"] =e.target.result;
+                   finalizeSubmission(submission, correctpassword); 
+                };
+                reader.readAsDataURL(photoFile);
+            }else{
+                submission["photo"]="";
+                finalizeSubmission(submission, correctpassword);
+            }return;
+
+            var elemArr1 =Array.from(elements); 
+           
+
+            function finalizeSubmission(submission, correctpassword){
         var aproval;
         if (correctpassword){
             const profileId = `R-${userId++}`;
@@ -79,6 +84,7 @@ integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cD
            
             document.getElementById("demo").innerHTML = demo; 
         }
+    }
         function updateProfileview(){
             const list = profiles.map(p => {
                 letimgTag = p.photo ? `<img src="${p.photo}" alt="photo" width="50" height="50" style ="border-radius:50%;" margin-right:10px;">`:"";
