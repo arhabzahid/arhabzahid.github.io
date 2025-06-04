@@ -63,33 +63,35 @@ integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cD
                  aproval=`<strong>Submission Successful!</strong> your Profile ID is <strong>${profileId}</strong>`;
                  profiles.push({ id: profileId, name: submission["fname"] || "Unnamed", photo: submission["photo"]});
                  updateProfileview();
+                 document.getElementById("demo").innerHTML = aproval;
+                 document.getElementById("myform").rest();
                 }else{
-                    aproval="<strong>Submission Unsuccessful! Password must contain ! and ? </strong>";    
-                var demo = `
-                ${aproval}<br>
-                First Name: ${submission["fname"] || ""}<br>
-                Last Name: ${submission["lname"] || ""}<br>
-                Date of Birth: ${submission["fdate"] || ""}<br>
-                Age:${submission[ "Age"]||""} <br> 
-                Place of Birth:${submission ["pob"]||""} <br> 
-                Qualification:${submission[ "qa"]||""} <br> 
-                Job:${submission[ "job"]||""} <br> 
-                Father Name:${submission["faname"]||""}<br> 
-                Father source of income:${submission[ "fainco"]||""} <br> 
-                Mother name:${submission["moname"]||""} <br> 
-                Mother source of income/house wife:${submission[ "moinco"]||""} <br> 
-                Email: ${submission["email"] || ""}<br>
-                Password: ${submission["Pass"]}
-                `;
-                document.getElementById("demo").innerHTML = demo; 
+                    aproval="<strong>Submission Unsuccessful! Password must contain ! and ? </strong>";
+                    var demo = `
+                    ${aproval}<br>
+                    First Name: ${submission["fname"] || ""}<br>
+                    Last Name: ${submission["lname"] || ""}<br>
+                    Date of Birth: ${submission["fdate"] || ""}<br>
+                    Age:${submission[ "Age"]||""} <br>
+                    Place of Birth:${submission ["pob"]||""} <br>
+                    Qualification:${submission[ "qa"]||""} <br>
+                    Job:${submission[ "job"]||""} <br>
+                    Father Name:${submission["faname"]||""}<br>
+                    Father source of income:${submission[ "fainco"]||""} <br>
+                    Mother name:${submission["moname"]||""} <br> 
+                    Mother source of income/house wife:${submission[ "moinco"]||""} <br> 
+                    Email: ${submission["email"] || ""}<br>
+                    Password: ${submission["Pass"]}
+                    `;
+                    document.getElementById("demo").innerHTML = demo; 
+                }
             }
-        }
     
         function updateProfileview(){
             const list = profiles.map(p => {
                 let imgTag = p.photo ? `<img src="${p.photo}" alt="photo" width="50" height="50" style ="border-radius:50%;" margin-right:10px;">`:"";
                 return `<li>${imgTag}${p.id} - ${p.name}</li>`;
-            }).join("");
+             }).join("");
             document.getElementById("profilelist").innerHTML=`<ul>${list}</ul>`;
             }
         
